@@ -10,16 +10,16 @@ READ EVERYTHING CAREFULLY!!!
 
 
 DEPLOYING_ON_HEROKU = (
-    True  # Make this False if you're not deploying On heroku/Docker
+    False  # Make this False if you're not deploying On heroku/Docker
 )
 
 
 if not DEPLOYING_ON_HEROKU:
-    BOT_TOKEN = "123456:qwertyuiopasdfghjklzxcvbnm"
-    SUDOERS = [1243703097]
+    BOT_TOKEN = "5450852153:AAGnutPVz3NXV7H3d3DxsKVHkgdLH_83suM"
+    SUDOERS = [5450852153]
     NSFW_LOG_CHANNEL = -1001470187101
     SPAM_LOG_CHANNEL = -1001554591017
-    ARQ_API_KEY = ""  # Get it from @ARQRobot
+    ARQ_API_KEY = "YUZWFF-ECSUWC-BHXBJV-FJWNLT-ARQ"  # Get it from @ARQRobot
 else:
     BOT_TOKEN = env.get("BOT_TOKEN")
     SUDOERS = [int(x) for x in env.get("SUDO_USERS_ID", "").split()]
