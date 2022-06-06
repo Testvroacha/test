@@ -9,7 +9,7 @@ from spr.utils.misc import clean, get_file_unique_id
 
 @spr.on_callback_query(filters.regex(r"^upvote_"))
 async def upvote_cb_func(_, cq: CallbackQuery):
-    if cq.message.chat.id not in [SPAM_LOG_CHANNEL, NSFW_LOG_CHANNEL]:
+    if cq.message.chat.id not in [SPAM_LOG_CHANNEL]:
         return await cq.answer()
     data = cq.data.split("_")[1]
     user_id = cq.from_user.id
@@ -42,7 +42,7 @@ async def upvote_cb_func(_, cq: CallbackQuery):
 
 @spr.on_callback_query(filters.regex(r"^downvote_"))
 async def downvote_cb_func(_, cq: CallbackQuery):
-    if cq.message.chat.id not in [SPAM_LOG_CHANNEL, NSFW_LOG_CHANNEL]:
+    if cq.message.chat.id not in [SPAM_LOG_CHANNEL]:
         return await cq.answer()
     data = cq.data.split("_")[1]
     user_id = cq.from_user.id
