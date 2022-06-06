@@ -1,4 +1,4 @@
-pyrogram==0.8.6
+pyrogram==1.4.16
 TgCrypto
 python-arq
 pykeyboard
