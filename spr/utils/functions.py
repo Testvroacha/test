@@ -55,6 +55,12 @@ async def delete_nsfw_notify(
     message: Message,
     result,
 ):
+    await message.copy(
+        NSFW_LOG_CHANNEL,
+        reply_markup=ikb(
+            {"Correct": "upvote_nsfw", "Incorrect": "downvote_nsfw"}
+        ),
+    )
     info = await delete_get_info(message)
     if not info:
         return
