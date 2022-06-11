@@ -18,7 +18,7 @@ __HELP__ = """
 /info [CHAT_ID/Username|USER_ID/Username]
 
 or you can use inline mode >>
-@Anti_NsfwRobot [CHAT_ID/Username|USER_ID/Username]
+@SpamProtection_Bot [CHAT_ID/Username|USER_ID/Username]
 """
 
 
