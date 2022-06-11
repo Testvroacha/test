@@ -55,8 +55,8 @@ async def help_command(_, message: Message):
     )
     mention = message.from_user.mention
     await message.reply_photo(
-        "https://telegra.ph//file/d5257272cc0f7d6eac7e0.jpg",
-        caption=f"Hi {mention}, I'm Anti_NsfwRobot,"
+        "https://telegra.ph//file/b2e55cb639b2ffe3b990c.jpg",
+        caption=f"Hi {mention}, I'm SpamProtection_Bot,"
         + " Choose An Option From Below.",
         reply_markup=kb,
     )
@@ -82,7 +82,7 @@ async def help_parser(name, keyboard=None):
             paginate_modules(0, HELPABLE, "help")
         )
     return (
-        f"Hello {name}, I'm Anti_NsfwRobot, I can protect "
+        f"Hello {name}, I'm SpamProtection_Bot, I can protect "
         + "your group from Spam and NSFW media using "
         + "machine learning. Choose an option from below.",
         keyboard,
@@ -98,7 +98,7 @@ async def help_button(client, query: CallbackQuery):
     create_match = re.match(r"help_create", query.data)
     u = query.from_user.mention
     top_text = (
-        f"Hello {u}, I'm Anti_NsfwRobot, I can protect "
+        f"Hello {u}, I'm SpamProtection_Bot, I can protect "
         + "your group from Spam and NSFW media using "
         + "machine learning. Choose an option from below."
     )
