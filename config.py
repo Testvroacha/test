@@ -10,14 +10,14 @@ READ EVERYTHING CAREFULLY!!!
 
 
 DEPLOYING_ON_HEROKU = (
-    True  # Make this False if you're not deploying On heroku/Docker
+    False  # Make this False if you're not deploying On heroku/Docker
 )
 
 
 if not DEPLOYING_ON_HEROKU:
     BOT_TOKEN = "5557458280:AAGqsLMWO9KcHOk2JJwZSlH7o-raX_GLH9Q"
     SUDOERS = [5545068262]
-    NSFW_LOG_CHANNEL = ""
+    NSFW_LOG_CHANNEL = "-1001667411233"
     SPAM_LOG_CHANNEL = "-1001667411233"
     ARQ_API_KEY = "LQIHOH-OYUWTI-ZXHYNM-GDEBOB-ARQ"  # Get it from @ARQRobot
 else:
