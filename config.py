@@ -10,7 +10,7 @@ READ EVERYTHING CAREFULLY!!!
 
 
 DEPLOYING_ON_HEROKU = (
-    False  # Make this False if you're not deploying On heroku/Docker
+    True  # Make this False if you're not deploying On heroku/Docker
 )
 
 
