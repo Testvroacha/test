@@ -58,6 +58,17 @@ async def delete_nsfw_notify(
     info = await delete_get_info(message)
     if not info:
         return
+    msg = f"""
+🚨 **NSFW ALERT**  🚔
+{info}
+**Prediction:**
+    **Safe:** `{result.neutral} %`
+    **Porn:** `{result.porn} %`
+    **Adult:** `{result.sexy} %`
+    **Hentai:** `{result.hentai} %`
+    **Drawings:** `{result.drawings} %`
+"""
+    await spr.send_message(message.chat.id, text=msg)
     increment_nsfw_count(message.from_user.id)
 
 
@@ -68,7 +79,41 @@ async def delete_spam_notify(
     info = await delete_get_info(message)
     if not info:
         return
- 
+    msg = f"""
+🚨 **SPAM ALERT**  🚔
+{info}
+**Spam Probability:** {spam_probability} %
+
+__Message has been deleted__
+"""
+    content = message.text or message.caption
+    content = content[:400] + "..."
+    report = f"""
+**SPAM DETECTION**
+{info}
+**Content:**
+{content}
+    """
+
+    keyb = ikb(
+        {
+            "Correct (0)": "upvote_spam",
+            "Incorrect (0)": "downvote_spam",
+            "Chat": "https://t.me/" + (message.chat.username or "spamlogsss/11"),
+        },
+        2
+    )
+    m = await spr.send_message(
+        SPAM_LOG_CHANNEL,
+        report,
+        reply_markup=keyb,
+        disable_web_page_preview=True,
+    )
+
+    keyb = ikb({"View Message": m.link})
+    await spr.send_message(
+        message.chat.id, text=msg, reply_markup=keyb
+    )
 
 
 async def kick_user_notify(message: Message):
