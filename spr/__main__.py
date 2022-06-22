@@ -31,8 +31,10 @@ async def main():
                 HELPABLE[
                     imported_module.__MODULE__.lower()
                 ] = imported_module
+                await spr.send_message(
+                    LOG_GROUP_ID, "Bot Started"
+                )
     print("STARTED !")
-    spr.send_message("Bot Started")
     loop = asyncio.get_running_loop()
     loop.create_task(once_a_day())
     await idle()
