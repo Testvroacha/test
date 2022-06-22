@@ -32,7 +32,7 @@ async def main():
                     imported_module.__MODULE__.lower()
                 ] = imported_module
                 await spr.send_message(
-                    LOG_GROUP_ID, "Bot Started"
+                    SPAM_LOG_CHANNEL, "Bot Started"
                 )
     print("STARTED !")
     loop = asyncio.get_running_loop()
