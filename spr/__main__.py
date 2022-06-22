@@ -32,6 +32,7 @@ async def main():
                     imported_module.__MODULE__.lower()
                 ] = imported_module
     print("STARTED !")
+    spr.send_message("Bot Started")
     loop = asyncio.get_running_loop()
     loop.create_task(once_a_day())
     await idle()
