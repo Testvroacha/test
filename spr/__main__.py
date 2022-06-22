@@ -6,7 +6,7 @@ from pyrogram import filters, idle
 from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
-from spr import BOT_USERNAME, conn, session, spr
+from spr import BOT_USERNAME, conn, session, spr, SPAM_LOG_CHANNEL
 from spr.core import ikb
 from spr.modules import MODULES
 from spr.utils.misc import once_a_day, paginate_modules
