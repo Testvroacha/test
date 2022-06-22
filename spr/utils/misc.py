@@ -76,7 +76,7 @@ async def once_a_day():
     while True:
         print("DB BACKED UP!, NEXT BACKUP WILL HAPPEN AFTER 24 HOURS")
         await backup()
-        await sleep(1728000)  # sleep for a day
+        await sleep(86400)  # sleep for a day
 
 
 def get_file_id(message):
