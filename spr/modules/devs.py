@@ -14,7 +14,6 @@ from pyrogram.types import (InlineKeyboardButton,
 from spr import SUDOERS, arq, spr
 from spr.utils.db import conn
 
-__MODULE__ = "Devs"
 __HELP__ = """
 **THIS MODULE IS ONLY FOR DEVS**
 
