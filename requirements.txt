@@ -3,3 +3,4 @@ TgCrypto
 python-arq
 pykeyboard
 python-dotenv
+motor
