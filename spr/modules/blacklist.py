@@ -1,6 +1,6 @@
 from pyrogram import filters
 from pyrogram.types import Message
-from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, blacklist_chat, blacklisted_chats, whitelist_chat
+from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat
 from spr import SPAM_LOG_CHANNEL, SUDOERS, spr
 from spr.modules.info import get_info
 from spr.utils.db import (add_chat, add_user, blacklist_chat,
@@ -35,12 +35,16 @@ async def blacklist_func(_, message: Message):
             return await message.reply_text(str(e))
 
         if not chat_exists(id):
-            add_chat(id)
+            if not await is_served_chat(id):                
+               add_chat(id)
+               await add_served_chat(id)
         if is_chat_blacklisted(id):
-            return await message.reply_text(
+            if id in await blacklisted_chats():
+               return await message.reply_text(
                 "This chat is already blacklisted."
             )
         blacklist_chat(id, reason)
+        await black_chat(id)
         await message.reply_text(f"Blacklisted chat {chat.title}")
         msg = f"**BLACKLIST EVENT**\n{await get_info(id)}"
         return await spr.send_message(SPAM_LOG_CHANNEL, text=msg)
@@ -55,12 +59,18 @@ async def blacklist_func(_, message: Message):
         return await message.reply_text(str(e))
 
     if not user_exists(id):
-        add_user(id)
+        is_served = await is_served_user(id)
+        if not is_served:
+           add_user(id)
+        await add_served_user(id)
     if is_user_blacklisted(id):
-        return await message.reply_text(
+        is_gbanned = await is_gbanned_user(id)
+        if is_gbanned:
+            return await message.reply_text(
             "This user is already blacklisted."
         )
     blacklist_user(id, reason)
+    await add_gban_user(id)
     await message.reply_text(f"Blacklisted user {user.mention}")
     msg = f"**BLACKLIST EVENT**\n{await get_info(id)}"
     await spr.send_message(SPAM_LOG_CHANNEL, text=msg)
@@ -87,12 +97,16 @@ async def whitelist_func(_, message: Message):
             return await message.reply_text(str(e))
 
         if not chat_exists(id):
-            add_chat(id)
+            if not await is_served_chat(id):              
+               add_chat(id)
+               await add_served_chat(id)
         if not is_chat_blacklisted(id):
-            return await message.reply_text(
+            if id not in await blacklisted_chats():                
+               return await message.reply_text(
                 "This chat is already whitelisted."
             )
         whitelist_chat(id)
+        await white_chat(id)
         return await message.reply_text(f"Whitelisted {chat.title}")
 
     try:
@@ -101,10 +115,16 @@ async def whitelist_func(_, message: Message):
         return await message.reply_text(str(e))
 
     if not user_exists(id):
-        add_user(id)
+        is_served = await is_served_user(id)
+        if not is_served:           
+           add_user(id)
+           await add_served_user(id)
     if not is_user_blacklisted(id):
+       is_gbanned = await is_gbanned_user(id)
+       if not is_gbanned:
         return await message.reply_text(
             "This user is already whitelisted."
         )
     whitelist_user(id)
+    await  remove_gban_user(id)
     return await message.reply_text(f"Whitelisted {user.mention}")
