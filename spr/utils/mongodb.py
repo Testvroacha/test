@@ -60,6 +60,13 @@ async def white_chat(chat_id: int) -> bool:
     return False
 
 
+async def is_black_chat(chat_id: int) -> bool:
+    chat = await blacklist_chatdb.find_one({"chat_id": chat_id})
+    if not chat:
+        return False
+    return True
+
+
 usersdb = db.users
 
 
