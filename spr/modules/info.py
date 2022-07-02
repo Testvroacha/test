@@ -32,7 +32,6 @@ async def get_user_info(user):
         if not is_served:
            add_user(user.id)
            await add_served_user(user.id)
-    trust = get_user_trust(user.id)
     blacklisted = is_user_blacklisted(user.id)
     is_gbanned = await is_gbanned_user(user.id)
     reason = None
@@ -46,7 +45,6 @@ async def get_user_info(user):
 **Mention: ** {user.mention("Link")}
 
 **Is Sudo:** {user.id in SUDOERS}
-**Trust:** {trust}
 **Spammer:** {True if trust < 50 else False}
 **Reputation:** {get_reputation(user.id)}
 **NSFW Count:** {get_nsfw_count(user.id)}
