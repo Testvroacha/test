@@ -4,4 +4,4 @@ python-arq
 pykeyboard
 python-dotenv
 motor
-
+pymongo
