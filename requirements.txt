@@ -4,3 +4,12 @@ python-arq
 pykeyboard
 python-dotenv
 motor
+asyncio
+dnspython
+gitpython
+aiofiles
+aiohttp
+requests
+pillow
+psutil
+wget
