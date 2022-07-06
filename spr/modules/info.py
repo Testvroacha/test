@@ -44,9 +44,6 @@ async def get_user_info(user):
 
 **Is Sudo:** {user.id in SUDOERS}
 **Spammer:** {is_gbanned}
-**Reputation:** {is_gbanned}
-**NSFW Count:** {is_gbanned}
-**Potential Spammer:** {is_gbanned}
 **Blacklisted:** {is_gbanned}
 """
     data += (
@@ -66,11 +63,9 @@ async def get_chat_info(chat):
         if not await is_served_chat(chat.id):
            add_chat(chat.id)
            await add_served_chat(chat.id)           
-    blacklisted = is_chat_blacklisted(chat.id)
     blackchat = await is_black_chat(chat.id)
     reason = None
-    if blacklisted:
-        if blackchat:
+    if blackchat:
            reason, time = get_blacklist_event(chat.id)
     data = f"""
 **ID:** {chat.id}
