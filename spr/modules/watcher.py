@@ -35,7 +35,6 @@ async def message_watcher(_, message: Message):
             if not await is_served_chat(chat_id):
                add_chat(chat_id)
                await add_served_chat(chat_id)
-        if is_chat_blacklisted(chat_id):
             if chat_id in await blacklisted_chats():
                  await spr.leave_chat(chat_id)
 
@@ -47,9 +46,8 @@ async def message_watcher(_, message: Message):
         if not is_served:
                 add_user(user_id)
                 await add_served_user(user_id)
-                if is_user_blacklisted(user_id) and chat_id:
-                    is_gbanned = await is_gbanned_user(user_id)                  
-                    if is_gbanned:                                  
+                is_gbanned = await is_gbanned_user(user_id)                  
+                if is_gbanned:                                  
                         if user_id not in (await admins(chat_id)):                            
                            await kick_user_notify(message)
 
