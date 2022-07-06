@@ -4,7 +4,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from spr import SUDOERS, arq, spr
-from spr.utils.db import (disable_nsfw, disable_spam, enable_nsfw,
+from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
                           is_spam_enabled)
 from spr.utils.misc import admins, get_file_id
@@ -40,14 +40,16 @@ async def nsfw_toggle_func(_, message: Message):
     status = status.lower()
     chat_id = message.chat.id
     if status == "enable":
-        if is_nsfw_enabled(chat_id):
+        is_nsfw = await is_nsfw_enabled(chat_id)
+        if is_nsfw:
             return await message.reply("Already enabled.")
-        enable_nsfw(chat_id)
+        await enable_nsfw(chat_id)
         await message.reply_text("Enabled NSFW Detection.")
     elif status == "disable":
-        if not is_nsfw_enabled(chat_id):
+        is_nsfw = await is_nsfw_enabled(chat_id)
+        if not is_nsfw:
             return await message.reply("Already disabled.")
-        disable_nsfw(chat_id)
+        await disable_nsfw(chat_id)
         await message.reply_text("Disabled NSFW Detection.")
     else:
         await message.reply_text(
@@ -76,14 +78,16 @@ async def spam_toggle_func(_, message: Message):
     status = status.lower()
     chat_id = message.chat.id
     if status == "enable":
-        if is_spam_enabled(chat_id):
+        is_spam = await is_spam_enabled(chat_id)
+        if is_spam:
             return await message.reply("Already enabled.")
-        enable_spam(chat_id)
+        await enable_spam(chat_id)
         await message.reply_text("Enabled Spam Detection.")
     elif status == "disable":
-        if not is_spam_enabled(chat_id):
+        is_spam = await is_spam_enabled(chat_id)
+        if not is_spam:
             return await message.reply("Already disabled.")
-        disable_spam(chat_id)
+        await disable_spam(chat_id)
         await message.reply_text("Disabled Spam Detection.")
     else:
         await message.reply_text(
