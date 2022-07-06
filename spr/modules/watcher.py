@@ -11,7 +11,7 @@ from spr.utils.db import (add_chat, add_user, chat_exists,
                           user_exists)
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
 from spr.utils.functions import (delete_nsfw_notify,
-                                 delete_spam_notify, kick_user_notify, get_user_info)
+                                 delete_spam_notify, kick_user_notify)
 from spr.utils.misc import admins, get_file_id, get_file_unique_id
 
 
@@ -49,24 +49,7 @@ async def message_watcher(_, message: Message):
                 is_gbanned = await is_gbanned_user(user_id)                  
                 if is_gbanned:                                  
                         if user_id not in (await admins(chat_id)):                            
-                           await spr.ban_chat_member(
-            message.chat.id, message.from_user.id
-        )
-    except (ChatAdminRequired, UserAdminInvalid):
-        try:
-            return await message.reply_text(
-                "I don't have enough permission to ban "
-                + "this user who is Blacklisted and Flagged as Spammer."
-            )
-        except ChatWriteForbidden:
-            return await spr.leave_chat(message.chat.id)
-    info = await get_user_info(message)
-    msg = f"""
-🚨 **SPAMMER ALERT**  🚔
-{info}
-__User has been banned__
-"""
-    await spr.send_message(message.chat.id, msg)
+                           await kick_user_notify(message)
 
     if not chat_id or not user_id:
         return
