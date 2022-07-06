@@ -63,13 +63,11 @@ async def blacklist_func(_, message: Message):
         if not is_served:
            add_user(id)
         await add_served_user(id)
-    if is_user_blacklisted(id):
         is_gbanned = await is_gbanned_user(id)
         if is_gbanned:
             return await message.reply_text(
             "This user is already blacklisted."
         )
-    blacklist_user(id, reason)
     await add_gban_user(id)
     await message.reply_text(f"Blacklisted user {user.mention}")
     msg = f"**BLACKLIST EVENT**\n{await get_info(id)}"
@@ -119,12 +117,10 @@ async def whitelist_func(_, message: Message):
         if not is_served:           
            add_user(id)
            await add_served_user(id)
-    if not is_user_blacklisted(id):
        is_gbanned = await is_gbanned_user(id)
        if not is_gbanned:
         return await message.reply_text(
             "This user is already whitelisted."
         )
-    whitelist_user(id)
     await  remove_gban_user(id)
     return await message.reply_text(f"Whitelisted {user.mention}")
