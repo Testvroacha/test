@@ -86,7 +86,6 @@ async def message_watcher(_, message: Message):
     if not resp.ok:
         return
     result = resp.result[0]
-    update_spam_data(user_id, result.spam)
     if not result.is_spam:
         return
     if not is_spam_enabled(chat_id):
