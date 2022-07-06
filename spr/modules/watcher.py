@@ -49,7 +49,24 @@ async def message_watcher(_, message: Message):
                 is_gbanned = await is_gbanned_user(user_id)                  
                 if is_gbanned:                                  
                         if user_id not in (await admins(chat_id)):                            
-                           await kick_user_notify(message)
+                           await spr.ban_chat_member(
+            message.chat.id, message.from_user.id
+        )
+    except (ChatAdminRequired, UserAdminInvalid):
+        try:
+            return await message.reply_text(
+                "I don't have enough permission to ban "
+                + "this user who is Blacklisted and Flagged as Spammer."
+            )
+        except ChatWriteForbidden:
+            return await spr.leave_chat(message.chat.id)
+    info = await get_user_info(message)
+    msg = f"""
+🚨 **SPAMMER ALERT**  🚔
+{info}
+__User has been banned__
+"""
+    await spr.send_message(message.chat.id, msg)
 
     if not chat_id or not user_id:
         return
