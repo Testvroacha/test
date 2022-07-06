@@ -47,8 +47,7 @@ async def message_watcher(_, message: Message):
                 add_user(user_id)
                 await add_served_user(user_id)
                 is_gbanned = await is_gbanned_user(user_id)                  
-                if is_gbanned:                                  
-                        if user_id not in (await admins(chat_id)):                            
+                if is_gbanned:                           
                            await kick_user_notify(message)
 
     if not chat_id or not user_id:
