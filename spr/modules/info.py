@@ -35,7 +35,7 @@ async def get_user_info(user):
     is_gbanned = await is_gbanned_user(user.id)
     reason = None
     if is_gbanned:
-    data = f"""
+        data = f"""
 **ID:** {user.id}
 **DC:** {user.dc_id}
 **Username:** {user.username}
@@ -65,7 +65,7 @@ async def get_chat_info(chat):
     blackchat = await is_black_chat(chat.id)
     reason = None
     if blackchat:
-    data = f"""
+        data = f"""
 **ID:** {chat.id}
 **Username:** {chat.username}
 **Type:** {chat.type}
