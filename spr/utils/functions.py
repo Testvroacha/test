@@ -18,7 +18,7 @@ async def get_user_info(message):
     is_gbanned = await is_gbanned_user(user.id)
     reason = None
     if is_gbanned:
-    data = f"""
+        data = f"""
 **User:**
     **Username:** {user_}
     **Spammer:** {is_gbanned}
