@@ -34,7 +34,7 @@ async def get_user_info(user):
            await add_served_user(user.id)
     is_gbanned = await is_gbanned_user(user.id)
     reason = None
-        if is_gbanned:
+    if is_gbanned:
            reason, time = get_blacklist_event(user.id)
     data = f"""
 **ID:** {user.id}
