@@ -6,6 +6,7 @@ from pyrogram.types import Message
 
 from spr import NSFW_LOG_CHANNEL, SPAM_LOG_CHANNEL, spr
 from spr.core import ikb
+from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
 from spr.utils.db import (get_blacklist_event, get_nsfw_count,
                           get_reputation, get_user_trust,
                           increment_nsfw_count, is_user_blacklisted)
@@ -13,21 +14,16 @@ from spr.utils.db import (get_blacklist_event, get_nsfw_count,
 
 async def get_user_info(message):
     user = message.from_user
-    trust = get_user_trust(user.id)
     user_ = f"{('@' + user.username) if user.username else user.mention} [`{user.id}`]"
-    blacklisted = is_user_blacklisted(user.id)
+    is_gbanned = await is_gbanned_user(user.id)
     reason = None
-    if blacklisted:
+    if is_gbanned:
         reason, time = get_blacklist_event(user.id)
     data = f"""
 **User:**
     **Username:** {user_}
-    **Trust:** {trust}
-    **Spammer:** {True if trust < 50 else False}
-    **Reputation:** {get_reputation(user.id)}
-    **NSFW Count:** {get_nsfw_count(user.id)}
-    **Potential Spammer:** {True if trust < 70 else False}
-    **Blacklisted:** {is_user_blacklisted(user.id)}
+    **Spammer:** {is_gbanned}
+    **Blacklisted:** {is_gbanned}
 """
     data += (
         f"    **Blacklist Reason:** {reason} | {ctime(time)}"
