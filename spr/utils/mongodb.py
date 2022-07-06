@@ -143,7 +143,7 @@ async def get_porn_chats() -> list:
     return chats_list
 
 
-async def is_porn_enabled(chat_id: int) -> bool:
+async def is_nsfw_enabled(chat_id: int) -> bool:
     chat = await porndb.find_one({"chat_id": chat_id})
     if not chat:
         return False
