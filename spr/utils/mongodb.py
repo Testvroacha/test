@@ -150,15 +150,15 @@ async def is_nsfw_enabled(chat_id: int) -> bool:
     return True
 
 
-async def add_porn_chat(chat_id: int):
-    is_porn = await is_porn_chat(chat_id)
+async def enable_nsfw(chat_id: int):
+    is_porn = await is_nsfw_enabled(chat_id)
     if is_porn:
         return
     return await porndb.insert_one({"chat_id": chat_id})
 
 
-async def remove_porn_chat(chat_id: int):
-    is_porn = await is_porn_chat(chat_id)
+async def disable_nsfw(chat_id: int):
+    is_porn = await is_nsfw_enabled(chat_id)
     if not is_porn:
         return
     return await porndb.delete_one({"chat_id": chat_id})
@@ -184,15 +184,15 @@ async def is_spam_enabled(chat_id: int) -> bool:
     return True
 
 
-async def add_spam_chat(chat_id: int):
-    is_spam = await is_spam_chat(chat_id)
+async def enable_spam(chat_id: int):
+    is_spam = await is_spam_enabled(chat_id)
     if is_spam:
         return
     return await spamdb.insert_one({"chat_id": chat_id})
 
 
-async def remove_spam_chat(chat_id: int):
-    is_spam = await is_spam_chat(chat_id)
+async def disable_spam(chat_id: int):
+    is_spam = await is_spam_enabled(chat_id)
     if not is_spam:
         return
     return await spamdb.delete_one({"chat_id": chat_id})
