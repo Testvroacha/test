@@ -44,8 +44,8 @@ async def get_user_info(user):
 
 **Is Sudo:** {user.id in SUDOERS}
 **Spammer:** {is_gbanned}
-**Reputation:** {get_reputation(user.id)}
-**NSFW Count:** {get_nsfw_count(user.id)}
+**Reputation:** {is_gbanned}
+**NSFW Count:** {is_gbanned}
 **Potential Spammer:** {is_gbanned}
 **Blacklisted:** {is_gbanned}
 """
