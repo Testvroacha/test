@@ -25,8 +25,6 @@ async def upvote_cb_func(_, cq: CallbackQuery):
 
         keyb = ikb(
             {
-                f"Correct ({upvotes + 1})": "upvote_spam",
-                f"Incorrect ({downvotes})": "downvote_spam",
                 "Chat": link,
             },
             2
@@ -58,8 +56,6 @@ async def downvote_cb_func(_, cq: CallbackQuery):
         link = kb[1][0].url
         keyb = ikb(
             {
-                f"Correct ({upvotes})": "upvote_spam",
-                f"Incorrect ({downvotes + 1})": "downvote_spam",
                 "Chat": link,
             },
             2
