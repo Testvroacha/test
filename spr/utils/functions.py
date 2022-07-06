@@ -65,7 +65,7 @@ async def delete_nsfw_notify(
     **Drawings:** `{result.drawings} %`
 """
     await spr.send_message(message.chat.id, text=msg)
-    increment_nsfw_count(message.from_user.id)
+    
 
 
 async def delete_spam_notify(
