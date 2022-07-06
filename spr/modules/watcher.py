@@ -70,7 +70,6 @@ async def message_watcher(_, message: Message):
         os.remove(file)
         if resp.ok:
             if resp.result.is_nsfw:
-                if is_nsfw_enabled(chat_id):
                     return await delete_nsfw_notify(
                         message, resp.result
                     )
@@ -83,8 +82,6 @@ async def message_watcher(_, message: Message):
         return
     result = resp.result[0]
     if not result.is_spam:
-        return
-    if not is_spam_enabled(chat_id):
         return
     if user_id in SUDOERS or user_id in (await admins(chat_id)):
         return
