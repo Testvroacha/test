@@ -43,10 +43,10 @@ async def get_user_info(user):
 **Mention: ** {user.mention("Link")}
 
 **Is Sudo:** {user.id in SUDOERS}
-**Spammer:** {True if trust < 50 else False}
+**Spammer:** {is_gbanned}
 **Reputation:** {get_reputation(user.id)}
 **NSFW Count:** {get_nsfw_count(user.id)}
-**Potential Spammer:** {True if trust < 70 else False}
+**Potential Spammer:** {is_gbanned}
 **Blacklisted:** {is_gbanned}
 """
     data += (
