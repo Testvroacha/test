@@ -61,8 +61,6 @@ async def message_watcher(_, message: Message):
     if file_id and file_unique_id:
         if user_id in SUDOERS or user_id in (await admins(chat_id)):
             return
-        if is_nsfw_downvoted(file_unique_id):
-            return
         file = await spr.download_media(file_id)
         try:
             resp = await arq.nsfw_scan(file=file)
