@@ -117,9 +117,9 @@ async def whitelist_func(_, message: Message):
         if not is_served:           
            add_user(id)
            await add_served_user(id)
-       is_gbanned = await is_gbanned_user(id)
-       if not is_gbanned:
-        return await message.reply_text(
+           is_gbanned = await is_gbanned_user(id)         
+           if not is_gbanned:              
+              return await message.reply_text(
             "This user is already whitelisted."
         )
     await  remove_gban_user(id)
