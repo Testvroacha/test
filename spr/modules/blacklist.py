@@ -38,12 +38,10 @@ async def blacklist_func(_, message: Message):
             if not await is_served_chat(id):                
                add_chat(id)
                await add_served_chat(id)
-        if is_chat_blacklisted(id):
             if id in await blacklisted_chats():
                return await message.reply_text(
                 "This chat is already blacklisted."
             )
-        blacklist_chat(id, reason)
         await black_chat(id)
         await message.reply_text(f"Blacklisted chat {chat.title}")
         msg = f"**BLACKLIST EVENT**\n{await get_info(id)}"
@@ -98,12 +96,10 @@ async def whitelist_func(_, message: Message):
             if not await is_served_chat(id):              
                add_chat(id)
                await add_served_chat(id)
-        if not is_chat_blacklisted(id):
             if id not in await blacklisted_chats():                
                return await message.reply_text(
                 "This chat is already whitelisted."
             )
-        whitelist_chat(id)
         await white_chat(id)
         return await message.reply_text(f"Whitelisted {chat.title}")
 
@@ -122,5 +118,5 @@ async def whitelist_func(_, message: Message):
               return await message.reply_text(
             "This user is already whitelisted."
         )
-    await  remove_gban_user(id)
+    await remove_gban_user(id)
     return await message.reply_text(f"Whitelisted {user.mention}")
