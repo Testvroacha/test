@@ -18,7 +18,6 @@ async def get_user_info(message):
     is_gbanned = await is_gbanned_user(user.id)
     reason = None
     if is_gbanned:
-        reason, time = get_blacklist_event(user.id)
     data = f"""
 **User:**
     **Username:** {user_}
