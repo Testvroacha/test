@@ -34,8 +34,6 @@ async def main():
                 ] = imported_module
     print("STARTED !")
     loop = asyncio.get_running_loop()
-    loop.create_task(once_a_day())
-    loop.create_task(once_a_minute())
     await idle()
     conn.commit()
     conn.close()
