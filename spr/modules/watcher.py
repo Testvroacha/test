@@ -2,7 +2,7 @@ import os
 
 from pyrogram import filters
 from pyrogram.types import Message
-
+from re import compile, search
 from spr import SUDOERS, arq, spr
 from spr.utils.db import (add_chat, add_user, chat_exists,
                           is_chat_blacklisted, is_nsfw_downvoted,
@@ -12,6 +12,16 @@ from spr.utils.mongodb import get_served_users, is_served_user, add_served_user,
 from spr.utils.functions import (delete_nsfw_notify,
                                  delete_spam_notify, kick_user_notify, arab_delete)
 from spr.utils.misc import admins, get_file_id, get_file_unique_id
+
+
+class REGEXES:
+    arab = compile('[\u0627-\u064a]')
+
+
+
+FORM_AND_REGEXES = {
+    "ar": [REGEXES.arab, "arabic"],
+}
 
 
 @spr.on_message(
@@ -85,7 +95,11 @@ async def message_watcher(_, message: Message):
         return
     is_arab = await is_arab_enabled(chat_id)
     if is_arab: 
-       await arab_delete(message, mode)
+       mdnrgx = FORM_AND_REGEXES[mode]
+    if search(mdnrgx[0], message.text):
+                    await message.delete()
+    except:
+        pass
     resp = await arq.nlp(text)
     if not resp.ok:
         return
