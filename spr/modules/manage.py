@@ -233,4 +233,4 @@ async def arab_delete(message, mode):
 
 @spr.on_message((filters.new_chat_members | filters.text),group=antifunc_group )
 async def check_anti_funcs(_, message: Message):
-        await arab_delete(message)
+        await arab_delete(message, mode)
