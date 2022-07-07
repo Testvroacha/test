@@ -18,7 +18,7 @@ async def blacklist_func(_, message: Message):
         return await message.reply_text(err)
     id = message.text.split(None, 2)[1]
     reason = message.text.split(None, 2)[2].strip()
-    if not reason or not id:
+    if not id:
         return await message.reply_text(err)
     try:
         id = int(id)
