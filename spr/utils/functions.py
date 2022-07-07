@@ -24,11 +24,6 @@ async def get_user_info(message):
     **Spammer:** {is_gbanned}
     **Blacklisted:** {is_gbanned}
 """
-    data += (
-        f"    **Blacklist Reason:** {reason} | {ctime(time)}"
-        if reason
-        else ""
-    )
     return data
 
 
