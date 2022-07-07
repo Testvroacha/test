@@ -7,7 +7,7 @@ from pyrogram.types import InlineKeyboardButton, ChatMemberUpdated
 
 
 from spr import DB_NAME, SESSION_NAME, SUDOERS, spr
-from spr.utils.db import conn
+
 
 async def backup():
     for user in SUDOERS:
@@ -59,11 +59,6 @@ async def admin_cache_func(_, cmu: ChatMemberUpdated):
         print(f"Updated admin cache for {cmu.chat.id} [{cmu.chat.title}]")
 
 
-async def once_a_minute():
-    while True:
-        conn.commit()
-        print(f"Commited to database at {ctime(time())}")
-        await sleep(60)
 
 
 async def once_a_day():
