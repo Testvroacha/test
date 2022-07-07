@@ -91,6 +91,8 @@ async def delete_spam_notify(
     message: Message,
     spam_probability: float,
     is_spam,
+    spam: float,
+    ham: float,
 ):
     if is_spam==False:
         return
@@ -100,7 +102,9 @@ async def delete_spam_notify(
     msg = f"""
 🚨 **SPAM ALERT**  🚔
 {info}
-**Spam:** {is_spam}
+**Is Spam:** {is_spam}
+**Ham:** {ham}
+**Spam:** {spam}
 **Spam Probability:** {spam_probability} %
 
 __Message has been deleted__
