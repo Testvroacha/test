@@ -9,7 +9,7 @@ from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
 from spr import BOT_USERNAME, session, spr, SPAM_LOG_CHANNEL
 from spr.core import ikb
 from spr.modules import MODULES
-from spr.utils.misc import once_a_day, paginate_modules
+from spr.utils.misc import paginate_modules
 
 
 HELPABLE = {}
