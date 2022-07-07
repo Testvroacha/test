@@ -5,7 +5,7 @@ from pyrogram.types import Message
 from spr import SUDOERS, arq, spr, SUDOERS
 from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
-                          is_spam_enabled, enable_arab, disable_arab, is_arab_enabled)
+                          is_spam_enabled, del_anti_func, set_anti_func, get_anti_func)
 from spr.utils.misc import admins, get_file_id
 
 __MODULE__ = "Manage"
