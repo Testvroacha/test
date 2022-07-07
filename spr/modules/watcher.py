@@ -83,8 +83,6 @@ async def message_watcher(_, message: Message):
     if not text:
         return
     anti_func_det = await get_anti_func(chat_id)
-    if not anti_func_det:
-        return
     if anti_func_det[0] != "on":
        await arab_delete(message, anti_func_det[1])
     resp = await arq.nlp(text)
