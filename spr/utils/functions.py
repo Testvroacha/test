@@ -4,7 +4,7 @@ from pyrogram.errors import (ChatAdminRequired, ChatWriteForbidden,
                              UserAdminInvalid)
 from pyrogram.types import Message
 from re import compile
-from spr import NSFW_LOG_CHANNEL, SPAM_LOG_CHANNEL, spr
+from spr import NSFW_LOG_CHANNEL, SPAM_LOG_CHANNEL, spr, SUDOERS
 from spr.core import ikb
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
 from spr.utils.db import (get_blacklist_event, get_nsfw_count,
@@ -149,6 +149,8 @@ async def arab_delete(message, mode):
         if message.text:
             if not tuser:
                 return
+            if tuser.id in SUDOERS or tuser.id in (await admins(chat_id)):
+            return
             if search(mdnrgx[0], message.text):
                 # Admins have the foking power
                 if not await check_admin(message, tuser.id):
