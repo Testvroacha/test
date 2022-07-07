@@ -90,7 +90,7 @@ async def delete_nsfw_notify(
 async def delete_spam_notify(
     message: Message,
     spam_probability: float,
-    is_spam: boolean,
+    is_spam: string,
 ):
     info = await delete_get_info(message)
     if not info:
