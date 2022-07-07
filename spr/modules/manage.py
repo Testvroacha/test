@@ -126,17 +126,17 @@ async def arab_toggle_func(_, message: Message):
     status = message.text.split(None, 1)[1].strip()
     status = status.lower()
     chat_id = message.chat.id
-    if status == "enable":
-        is_arab = await is_arab_enabled(chat_id)
-        if is_arab:
-            return await message.reply("Already enabled.")
-        await enable_arab(chat_id)
+    args = get_arg(message)
+    if not args:
+        await message.reply_text(
+            "Unknown Suffix, Use /anti_arab [ENABLE|DISABLE]"
+        )
+    lower_args = args.lower()
+    if lower_args == "on":
+        await set_anti_func(chat_id, "on", "ar")
         await message.reply_text("Enabled Arabic Spam Detection.")
-    elif status == "disable":
-        is_arab = await is_arab_enabled(chat_id)
-        if not is_arab:
-            return await message.reply("Already disabled.")
-        await disable_arab(chat_id)
+    elif lower_args == "off":
+        await del_anti_func(chat_id)       
         await message.reply_text("Disabled Arabic Spam Detection.")
     else:
         await message.reply_text(
@@ -220,8 +220,6 @@ async def arab_delete(message, mode):
                       return
             if tuser.id in SUDOERS or tuser.id in (await admins(chat_id)):
                 return
-            is_arab = await is_arab_enabled(chat_id)
-            if is_arab:
                 if search(mdnrgx[0], message.text):
                     await message.delete()
     except:
@@ -233,4 +231,11 @@ async def arab_delete(message, mode):
 
 @spr.on_message((filters.new_chat_members | filters.text),group=antifunc_group )
 async def check_anti_funcs(_, message: Message):
-        await arab_delete(message, mode)
+    anti_func_det = await get_anti_func(message.chat.id)
+    # Checks if the functions are enabled for the chat
+    if not anti_func_det:
+        return
+    if anti_func_det[0] != "on":
+        return
+    # Warns or ban the user from the chat
+    await arabic_delete(message, anti_func_det[1])
