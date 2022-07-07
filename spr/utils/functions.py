@@ -3,13 +3,23 @@ from time import ctime
 from pyrogram.errors import (ChatAdminRequired, ChatWriteForbidden,
                              UserAdminInvalid)
 from pyrogram.types import Message
-
+from re import compile
 from spr import NSFW_LOG_CHANNEL, SPAM_LOG_CHANNEL, spr
 from spr.core import ikb
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
 from spr.utils.db import (get_blacklist_event, get_nsfw_count,
                           get_reputation, get_user_trust,
                           increment_nsfw_count, is_user_blacklisted)
+
+
+class REGEXES:
+    arab = compile('[\u0627-\u064a]')
+
+
+
+FORM_AND_REGEXES = {
+    "ar": [REGEXES.arab, "arabic"],
+}
 
 
 async def get_user_info(message):
@@ -124,3 +134,28 @@ async def kick_user_notify(message: Message):
 __User has been banned__
 """
     await spr.send_message(message.chat.id, msg)
+
+
+async def arab_delete(message, mode):
+    # Users list
+    users = message.new_chat_members
+    chat_id = message.chat.id
+    # Obtaining user who sent the message
+    tuser = message.from_user
+    try:
+        mdnrgx = FORM_AND_REGEXES[mode]
+        if users:
+            for user in users:              
+        if message.text:
+            if not tuser:
+                return
+            if search(mdnrgx[0], message.text):
+                # Admins have the foking power
+                if not await check_admin(message, tuser.id):
+                    # Ban the user if the warns are exceeded
+                    await message.delete()
+    except:
+        pass
+
+
+
