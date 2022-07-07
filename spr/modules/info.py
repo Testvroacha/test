@@ -57,7 +57,7 @@ async def get_chat_info(chat):
     except Exception:
         return
     is_served = await is_served_user(chat.id)
-        if not is_served:
+    if not is_served:
            await add_served_chat(chat.id)           
     blackchat = await is_black_chat(chat.id)
     reason = None
