@@ -33,9 +33,7 @@ async def blacklist_func(_, message: Message):
             chat = await spr.get_chat(id)
         except Exception as e:
             return await message.reply_text(str(e))
-
-        is_serve = await is_served_chat(id)
-        if not is_serve:                
+        if not await is_served_chat(id):               
                await add_served_chat(id)
         if id in await blacklisted_chats():
                return await message.reply_text(
