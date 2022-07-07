@@ -199,18 +199,18 @@ async def disable_spam(chat_id: int):
 
 
 
-arabdb = db.arab
+antidb = db.anti
 
 
 async def set_anti_func(chat_id, status, mode):
-    anti_f = await arabdb.find_one({"_id": chat_id})
+    anti_f = await antidb.find_one({"_id": chat_id})
     if anti_f:
-        await arabdb.update_one({"_id": chat_id}, {"$set": {"status": status, "mode": mode}})
+        await antidb.update_one({"_id": chat_id}, {"$set": {"status": status, "mode": mode}})
     else:
-        await arabdb.insert_one({"_id": chat_id, "status": status, "mode": mode})
+        await antidb.insert_one({"_id": chat_id, "status": status, "mode": mode})
 
 async def get_anti_func(chat_id):
-    anti_f = await arabdb.find_one({"_id": chat_id})
+    anti_f = await antidb.find_one({"_id": chat_id})
     if not anti_f:
         return None
     else:
@@ -218,9 +218,9 @@ async def get_anti_func(chat_id):
         return snm
 
 async def del_anti_func(chat_id):
-    anti_f = await arabdb.find_one({"_id": chat_id})
+    anti_f = await antidb.find_one({"_id": chat_id})
     if anti_f:
-        await arabdb.delete_one({"_id": chat_id})
+        await antidb.delete_one({"_id": chat_id})
         return True
     else:
         return False
