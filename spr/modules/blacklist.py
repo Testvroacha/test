@@ -15,7 +15,7 @@ from spr.utils.db import (add_chat, add_user, blacklist_chat,
 async def blacklist_func(_, message: Message):
     err = "Enter a user/chat's id"
     if len(message.command) < 3:
-        return
+        return await message.reply_text(err)
     id = message.text.split(None, 1)[1]
     if not id:
         return await message.reply_text(err)
