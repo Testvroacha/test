@@ -9,9 +9,6 @@ from pyrogram.types import Message
 from spr import NSFW_LOG_CHANNEL, SPAM_LOG_CHANNEL, spr
 from spr.core import ikb
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
-from spr.utils.db import (get_blacklist_event, get_nsfw_count,
-                          get_reputation, get_user_trust,
-                          increment_nsfw_count, is_user_blacklisted)
 
 
 class REGEXES:
