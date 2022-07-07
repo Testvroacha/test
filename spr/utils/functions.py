@@ -16,6 +16,11 @@ from spr.utils.db import (get_blacklist_event, get_nsfw_count,
 
 class REGEXES:
     arab = compile('[\u0627-\u064a]')
+    chinese = compile('[\u4e00-\u9fff]')
+    japanese = compile('[(\u30A0-\u30FF|\u3040-\u309Fー|\u4E00-\u9FFF)]')
+    sinhala = compile('[\u0D80-\u0DFF]')
+    tamil = compile('[\u0B02-\u0DFF]')
+    cyrillic = compile('[\u0400-\u04FF]')
 
 
 def get_arg(message):
@@ -29,9 +34,12 @@ def get_arg(message):
 
 FORM_AND_REGEXES = {
     "ar": [REGEXES.arab, "arabic"],
+    "zh": [REGEXES.chinese, "chinese"],
+    "jp": [REGEXES.japanese, "japanese"],
+    "rs": [REGEXES.cyrillic, "russian"],
+    "si": [REGEXES.sinhala, "sinhala"],
+    "ta": [REGEXES.tamil, "Tamil"],
 }
-
-
 
 async def get_user_info(message):
     user = message.from_user
