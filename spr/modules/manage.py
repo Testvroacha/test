@@ -246,4 +246,4 @@ async def check_anti_funcs(_, message: Message):
     if anti_func_det[0] != "on":
         return
     # Warns or ban the user from the chat
-    await arabic_delete(message, anti_func_det[1])
+    await arab_delete(message, anti_func_det[1])
