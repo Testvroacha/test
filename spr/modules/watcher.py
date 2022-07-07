@@ -1,5 +1,5 @@
 import os
-
+import requests
 from pyrogram import filters
 from pyrogram.types import Message
 from spr import SUDOERS, arq, spr
@@ -78,16 +78,15 @@ async def message_watcher(_, message: Message):
     text = message.text or message.caption
     if not text:
         return
-    resp = await arq.nlp(text)
-    if not resp.ok:
-        return
-    result = resp.result[0]
-    if not result.is_spam:
+    data = requests.get(f"https://api.safone.tech/spam?text={message}").json()
+    is_spam = data['data']['is_spam']
+    spam_probability = data['data']['spam_probability']
+    if is_spam=="false":
         return
     await enable_spam(chat_id)
-    is_spam = await is_spam_enabled(chat_id)
-    if not is_spam:
+    is_spm = await is_spam_enabled(chat_id)
+    if not is_spm:
         return
     if user_id in SUDOERS or user_id in (await admins(chat_id)):
         return
-    await delete_spam_notify(message, result.spam_probability)
+    await delete_spam_notify(message, spam_probability)
