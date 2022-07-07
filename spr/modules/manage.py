@@ -244,4 +244,4 @@ async def check_anti_funcs(_, message: Message):
     if not anti_func_det:
         return
     if anti_func_det[0] != "on":
-    await arab_delete(message, anti_func_det[1])
+       await arab_delete(message, anti_func_det[1])
