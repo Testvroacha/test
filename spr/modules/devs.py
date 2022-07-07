@@ -12,7 +12,7 @@ from pyrogram.types import (InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
 from spr import SUDOERS, arq, spr
-from spr.utils.db import conn
+
 
 __HELP__ = """
 **THIS MODULE IS ONLY FOR DEVS**
@@ -24,7 +24,6 @@ __HELP__ = """
 /whitelist [CHAT_ID|USER_ID] - Whitelist a chat/user.
 """
 
-conn = conn
 p = print
 arq = arq
 
