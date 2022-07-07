@@ -154,19 +154,14 @@ async def arab_delete(message, mode):
     # Obtaining user who sent the message
     tuser = message.from_user
     try:
-        mdnrgx = FORM_AND_REGEXES[mode]
-        if users:
-            for user in users:           
-               if message.text:
+        mdnrgx = FORM_AND_REGEXES[mode]           
+        if message.text:
                   if not tuser:
                       return
-            if tuser.id in SUDOERS or tuser.id in (await admins(chat_id)):
-                return
-                if search(mdnrgx[0], message.text):
-                    await message.delete()
+                      if search(mdnrgx[0], message.text):
+                          await message.delete()
     except:
         pass
-
 
 
 
