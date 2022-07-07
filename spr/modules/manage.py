@@ -10,11 +10,11 @@ from spr.utils.misc import admins, get_file_id
 
 __MODULE__ = "Manage"
 __HELP__ = """
-/anti_nsfw [ENABLE|DISABLE] - Enable or disable NSFW Detection.
-/anti_spam [ENABLE|DISABLE] - Enable or disable Spam Detection.
+/antinsfw [ENABLE|DISABLE] - Enable or disable NSFW Detection.
+/antispam [ENABLE|DISABLE] - Enable or disable Spam Detection.
 
-/nsfw_scan - Classify a media.
-/spam_scan - Get Spam predictions of replied message.
+/nsfwscan - Classify a media.
+/spamscan - Get Spam predictions of replied message.
 """
 
 def get_arg(message):
@@ -27,7 +27,7 @@ def get_arg(message):
 
 
 @spr.on_message(
-    filters.command("anti_nsfw") & ~filters.private, group=3
+    filters.command("antinsfw") & ~filters.private, group=3
 )
 async def nsfw_toggle_func(_, message: Message):
     if len(message.command) != 2:
@@ -65,7 +65,7 @@ async def nsfw_toggle_func(_, message: Message):
 
 
 @spr.on_message(
-    filters.command("anti_spam") & ~filters.private, group=3
+    filters.command("antispam") & ~filters.private, group=3
 )
 async def spam_toggle_func(_, message: Message):
     if len(message.command) != 2:
@@ -103,7 +103,7 @@ async def spam_toggle_func(_, message: Message):
 
 
 @spr.on_message(
-    filters.command("anti_arab") & ~filters.private, group=3
+    filters.command("antiarab") & ~filters.private, group=3
 )
 async def arab_toggle_func(_, message: Message):
     if len(message.command) != 2:
@@ -140,7 +140,7 @@ async def arab_toggle_func(_, message: Message):
         )
 
 
-@spr.on_message(filters.command("nsfw_scan"), group=3)
+@spr.on_message(filters.command("nsfwscan"), group=3)
 async def nsfw_scan_command(_, message: Message):
     err = "Reply to an image/document/sticker/animation to scan it."
     if not message.reply_to_message:
@@ -181,7 +181,7 @@ async def nsfw_scan_command(_, message: Message):
     )
 
 
-@spr.on_message(filters.command("spam_scan"), group=3)
+@spr.on_message(filters.command("spamscan"), group=3)
 async def scanNLP(_, message: Message):
     if not message.reply_to_message:
         return await message.reply("Reply to a message to scan it.")
