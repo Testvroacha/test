@@ -26,11 +26,9 @@ async def get_user_info(user):
     try:
         user = await spr.get_users(user)
     except Exception:
-        return
-        if not user_exists(user.id):            
-            is_served = await is_served_user(user.id)
-        if not is_served:
-           add_user(user.id)
+        return            
+        is_serve = await is_served_user(user.id)
+        if not is_serve:
            await add_served_user(user.id)
     is_gbanned = await is_gbanned_user(user.id)
     reason = None
@@ -58,9 +56,8 @@ async def get_chat_info(chat):
         chat = await spr.get_chat(chat)
     except Exception:
         return
-    if not chat_exists(chat.id):
-        if not await is_served_chat(chat.id):
-           add_chat(chat.id)
+    is_served = await is_served_user(chat.id)
+        if not is_served:
            await add_served_chat(chat.id)           
     blackchat = await is_black_chat(chat.id)
     reason = None
