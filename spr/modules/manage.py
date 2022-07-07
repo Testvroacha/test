@@ -220,6 +220,8 @@ async def arab_delete(message, mode):
                       return
             if tuser.id in SUDOERS or tuser.id in (await admins(chat_id)):
                 return
+            is_arab = await is_arab_enabled(chat_id)
+            if is_arab:
             if search(mdnrgx[0], message.text):
                     await message.delete()
     except:
@@ -231,6 +233,4 @@ async def arab_delete(message, mode):
 
 @spr.on_message((filters.new_chat_members | filters.text),group=antifunc_group )
 async def check_anti_funcs(_, message: Message):
-     is_arab = await is_arab_enabled(chat_id)
-     if is_arab:
         await arab_delete(message)
