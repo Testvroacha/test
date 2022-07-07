@@ -6,10 +6,10 @@ from pyrogram import filters, idle
 from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
-from spr import BOT_USERNAME, conn, session, spr, SPAM_LOG_CHANNEL
+from spr import BOT_USERNAME, session, spr, SPAM_LOG_CHANNEL
 from spr.core import ikb
 from spr.modules import MODULES
-from spr.utils.misc import once_a_day, once_a_minute, paginate_modules
+from spr.utils.misc import once_a_day, paginate_modules
 
 
 HELPABLE = {}
@@ -35,8 +35,6 @@ async def main():
     print("STARTED !")
     loop = asyncio.get_running_loop()
     await idle()
-    conn.commit()
-    conn.close()
     await session.close()
     await spr.stop()
 
