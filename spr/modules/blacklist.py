@@ -52,10 +52,8 @@ async def blacklist_func(_, message: Message):
         user = await spr.get_users(id)
     except Exception as e:
         return await message.reply_text(str(e))
-
-        is_served = await is_served_user(id)
-    if not is_served:
-        await add_served_user(id)
+        if not await is_served_user(id):                                
+               await add_served_user(id)
         is_gbanned = await is_gbanned_user(id)
         if is_gbanned:
             return await message.reply_text(
