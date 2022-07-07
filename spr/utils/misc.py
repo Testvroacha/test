@@ -6,18 +6,8 @@ from time import time, ctime
 from pyrogram.types import InlineKeyboardButton, ChatMemberUpdated
 
 
-from spr import DB_NAME, SESSION_NAME, SUDOERS, spr
+from spr import SESSION_NAME, SUDOERS, spr
 
-
-async def backup():
-    for user in SUDOERS:
-        try:
-            await gather(
-                spr.send_document(user, DB_NAME),
-                spr.send_document(user, SESSION_NAME + ".session"),
-            )
-        except Exception:
-            pass
 
 admins_in_chat = {}
 
@@ -58,27 +48,6 @@ async def admin_cache_func(_, cmu: ChatMemberUpdated):
         }
         print(f"Updated admin cache for {cmu.chat.id} [{cmu.chat.title}]")
 
-
-
-
-async def once_a_day():
-    print("BACKING UP DB...")
-    await backup()
-    dt = datetime.now()
-    seconds_till_twelve = (
-        ((24 - dt.hour - 1) * 60 * 60)
-        + ((60 - dt.minute - 1) * 60)
-        + (60 - dt.second)
-    )
-    print(
-        "BACKED UP, NEXT BACKUP WILL HAPPEN AFTER "
-        + f"{round(seconds_till_twelve/60/60, 4)} HOUR(S)"
-    )
-    await sleep(int(seconds_till_twelve))  # Sleep till 12 AM
-    while True:
-        print("DB BACKED UP!, NEXT BACKUP WILL HAPPEN AFTER 24 HOURS")
-        await backup()
-        await sleep(86400)  # sleep for a day
 
 
 def get_file_id(message):
