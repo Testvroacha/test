@@ -43,11 +43,6 @@ async def get_user_info(user):
 **Spammer:** {is_gbanned}
 **Blacklisted:** {is_gbanned}
 """
-    data += (
-        f"**Blacklist Reason:** {reason} | {ctime(time)}"
-        if reason
-        else ""
-    )
     return data
 
 
@@ -71,11 +66,6 @@ async def get_chat_info(chat):
 **Restricted:** {chat.is_restricted}
 **Blacklisted:** {blackchat}
 """
-    data += (
-        f"**Blacklist Reason:** {reason} | {ctime(time)}"
-        if reason
-        else ""
-    )
     return data
 
 
