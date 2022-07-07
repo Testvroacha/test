@@ -220,14 +220,14 @@ async def is_arab_enabled(chat_id: int) -> bool:
 
 
 async def enable_arab(chat_id: int):
-    is_spam = await is_arab_enabled(chat_id)
+    is_arab = await is_arab_enabled(chat_id)
     if is_arab:
         return
     return await arabdb.insert_one({"chat_id": chat_id})
 
 
 async def disable_arab(chat_id: int):
-    is_spam = await is_arab_enabled(chat_id)
+    is_arab = await is_arab_enabled(chat_id)
     if not is_arab:
         return
     return await arabdb.delete_one({"chat_id": chat_id})
