@@ -95,7 +95,7 @@ async def message_watcher(_, message: Message, mode):
         return
     is_arab = await is_arab_enabled(chat_id)
     if is_arab:
-     mdnrgx = FORM_AND_REGEXES[mode]
+     mdnrgx = REGEXES[arab]
     if search(mdnrgx[0], message.text):
                     await message.delete()
     resp = await arq.nlp(text)
