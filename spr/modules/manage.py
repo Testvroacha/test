@@ -141,7 +141,7 @@ async def arab_toggle_func(_, message: Message):
         )
     lower_args = args.lower()
     if lower_args == "on":
-    anti_dect = await get_anti_func(chat_id)
+       anti_dect = await get_anti_func(chat_id)
     if anti_dect:
         return await message.reply("Already enabled.")
         await set_anti_func(chat_id, "on", "ar")
