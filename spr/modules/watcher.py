@@ -29,10 +29,9 @@ async def message_watcher(_, message: Message):
     chat_id = None
 
     if message.chat.type in ["group", "supergroup"]:
-        chat_id = message.chat.id
-        if not chat_exists(chat_id):
-            if not await is_served_chat(chat_id):
-               add_chat(chat_id)
+        chat_id = message.chat.id    
+        is_serve = await is_served_chat(chat_id)
+        if not is_serve:
                await add_served_chat(chat_id)
                await enable_nsfw(chat_id)
                await enable_spam(chat_id)
@@ -42,13 +41,11 @@ async def message_watcher(_, message: Message):
     if message.from_user:
         if message.from_user.id:
             user_id = message.from_user.id
-            if not user_exists(user_id):
-                is_served = await is_served_user(user_id)
+            is_served = await is_served_user(user_id)
         if not is_served:
-                add_user(user_id)
+                await add_served_user(user_id)
                 await enable_nsfw(chat_id)
                 await enable_spam(chat_id)
-                await add_served_user(user_id)
                 is_gbanned = await is_gbanned_user(user_id)                  
                 if is_gbanned:                                  
                         if user_id not in (await admins(chat_id)):                            
