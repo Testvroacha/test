@@ -32,7 +32,7 @@ def get_arg(message):
 async def nsfw_toggle_func(_, message: Message):
     if len(message.command) != 2:
         return await message.reply_text(
-            "Usage: /anti_nsfw [ENABLE|DISABLE]"
+            "Usage: /antinsfw [ENABLE|DISABLE]"
         )
     if message.from_user:
         user = message.from_user
@@ -60,7 +60,7 @@ async def nsfw_toggle_func(_, message: Message):
         await message.reply_text("Disabled NSFW Detection.")
     else:
         await message.reply_text(
-            "Unknown Suffix, Use /anti_nsfw [ENABLE|DISABLE]"
+            "Unknown Suffix, Use /antinsfw [ENABLE|DISABLE]"
         )
 
 
@@ -70,7 +70,7 @@ async def nsfw_toggle_func(_, message: Message):
 async def spam_toggle_func(_, message: Message):
     if len(message.command) != 2:
         return await message.reply_text(
-            "Usage: /anti_spam [ENABLE|DISABLE]"
+            "Usage: /antispam [ENABLE|DISABLE]"
         )
     if message.from_user:
         user = message.from_user
@@ -98,7 +98,7 @@ async def spam_toggle_func(_, message: Message):
         await message.reply_text("Disabled Spam Detection.")
     else:
         await message.reply_text(
-            "Unknown Suffix, Use /anti_spam [ENABLE|DISABLE]"
+            "Unknown Suffix, Use /antispam [ENABLE|DISABLE]"
         )
 
 
@@ -108,7 +108,7 @@ async def spam_toggle_func(_, message: Message):
 async def arab_toggle_func(_, message: Message):
     if len(message.command) != 2:
         return await message.reply_text(
-            "Usage: /anti_arab [ENABLE|DISABLE]"
+            "Usage: /antiarab [ENABLE|DISABLE]"
         )
     if message.from_user:
         user = message.from_user
@@ -125,7 +125,7 @@ async def arab_toggle_func(_, message: Message):
     args = get_arg(message)
     if not args:
         await message.reply_text(
-            "Unknown Suffix, Use /anti_arab [ENABLE|DISABLE]"
+            "Unknown Suffix, Use /antiarab [ENABLE|DISABLE]"
         )
     lower_args = args.lower()
     if lower_args == "on":
@@ -136,7 +136,7 @@ async def arab_toggle_func(_, message: Message):
         await message.reply_text("Disabled Arabic Spam Detection.")
     else:
         await message.reply_text(
-            "Unknown Suffix, Use /anti_arab [ENABLE|DISABLE]"
+            "Unknown Suffix, Use /antiarab [ENABLE|DISABLE]"
         )
 
 
