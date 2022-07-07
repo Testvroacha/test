@@ -59,6 +59,9 @@ async def message_watcher(_, message: Message):
     if file_id and file_unique_id:
         if user_id in SUDOERS or user_id in (await admins(chat_id)):
             return
+        is_gbanned = await is_gbanned_user(user_id)                  
+        if is_gbanned:
+              await kick_user_notify(message)
         file = await spr.download_media(file_id)
         try:
             resp = await arq.nsfw_scan(file=file)
