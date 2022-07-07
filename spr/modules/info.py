@@ -5,11 +5,6 @@ from pyrogram.types import (InlineQuery, InlineQueryResultArticle,
                             InputTextMessageContent, Message)
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
 from spr import SUDOERS, spr
-from spr.utils.db import (add_chat, add_user, chat_exists,
-                          get_blacklist_event, get_nsfw_count,
-                          get_reputation, get_user_trust,
-                          is_chat_blacklisted, is_user_blacklisted,
-                          user_exists)
 
 __MODULE__ = "Info"
 __HELP__ = """
