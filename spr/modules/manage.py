@@ -233,6 +233,4 @@ async def arab_delete(message, mode):
 async def check_anti_funcs(_, message: Message):
      is_arab = await is_arab_enabled(chat_id)
      if is_arab:
-    # Warns or ban the user from the chat
-    await arab_delete(message)
-
+        await arab_delete(message)
