@@ -141,11 +141,14 @@ async def arab_toggle_func(_, message: Message):
         )
     lower_args = args.lower()
     if lower_args == "on":
+    anti_dect = await get_anti_func(chat_id)
+    if anti_dect:
+        return await message.reply("Already enabled.")
         await set_anti_func(chat_id, "on", "ar")
         await message.reply_text("Enabled Arabic Spam Detection.")
     elif lower_args == "off":
-       anti_func_det = await get_anti_func(chat_id)
-    if not anti_func_det:
+       anti_fuck = await get_anti_func(chat_id)
+    if not anti_fuck:
         return await message.reply("Already Disabled.")
         await del_anti_func(chat_id)       
         await message.reply_text("Disabled Arabic Spam Detection.")
