@@ -1,4 +1,5 @@
 from os import remove
+import requests
 from re import compile, search
 from pyrogram import filters
 from pyrogram.types import Message
@@ -189,14 +190,16 @@ async def scanNLP(_, message: Message):
     text = r.text or r.caption
     if not text:
         return await message.reply("Can't scan that")
-    data = await arq.nlp(text)
-    data = data.result[0]
+    data = requests.get(f"https://api.safone.tech/spam?text={text}").json()
+    is_spam = data['data']['is_spam']
+    spam_probability = data['data']['spam_probability']
+    spam = data['data']['spam']
+    ham = data['data']['ham']
     msg = f"""
-**Is Spam:** {data.is_spam}
-**Spam Probability:** {data.spam_probability} %
-**Spam:** {data.spam}
-**Ham:** {data.ham}
-**Profanity:** {data.profanity}
+**Is Spam:** {is_spam}
+**Spam Probability:** {spam_probability} %
+**Spam:** {spam_probability}
+**Ham:** {ham}
 """
     await message.reply(msg, quote=True)
 
