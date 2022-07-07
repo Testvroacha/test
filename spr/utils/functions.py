@@ -145,12 +145,12 @@ async def arab_delete(message, mode):
     try:
         mdnrgx = FORM_AND_REGEXES[mode]
         if users:
-            for user in users:              
-        if message.text:
-            if not tuser:
-                return
+            for user in users:           
+               if message.text:
+                  if not tuser:
+                      return
             if tuser.id in SUDOERS or tuser.id in (await admins(chat_id)):
-            return
+                return
             if search(mdnrgx[0], message.text):
                 # Admins have the foking power
                 if not await check_admin(message, tuser.id):
@@ -158,6 +158,5 @@ async def arab_delete(message, mode):
                     await message.delete()
     except:
         pass
-
 
 
