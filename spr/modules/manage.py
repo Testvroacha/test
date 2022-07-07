@@ -1,9 +1,8 @@
 from os import remove
-
+from re import compile, search
 from pyrogram import filters
 from pyrogram.types import Message
-
-from spr import SUDOERS, arq, spr
+from spr import SUDOERS, arq, spr, SUDOERS
 from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
                           is_spam_enabled, enable_arab, disable_arab, is_arab_enabled)
@@ -17,6 +16,18 @@ __HELP__ = """
 /nsfw_scan - Classify a media.
 /spam_scan - Get Spam predictions of replied message.
 """
+
+antifunc_group = 14
+
+class REGEXES:
+    arab = compile('[\u0627-\u064a]')
+
+
+
+FORM_AND_REGEXES = {
+    "ar": [REGEXES.arab, "arabic"],
+}
+
 
 
 @spr.on_message(
@@ -192,3 +203,36 @@ async def scanNLP(_, message: Message):
 **Profanity:** {data.profanity}
 """
     await message.reply(msg, quote=True)
+
+
+async def arab_delete(message, mode):
+    # Users list
+    users = message.new_chat_members
+    chat_id = message.chat.id
+    # Obtaining user who sent the message
+    tuser = message.from_user
+    try:
+        mdnrgx = FORM_AND_REGEXES[mode]
+        if users:
+            for user in users:           
+               if message.text:
+                  if not tuser:
+                      return
+            if tuser.id in SUDOERS or tuser.id in (await admins(chat_id)):
+                return
+            if search(mdnrgx[0], message.text):
+                    await message.delete()
+    except:
+        pass
+
+
+
+
+
+@spr.on_message((filters.new_chat_members | filters.text),group=antifunc_group )
+async def check_anti_funcs(_, message: Message):
+     is_arab = await is_arab_enabled(chat_id)
+     if is_arab:
+    # Warns or ban the user from the chat
+    await arab_delete(message)
+
