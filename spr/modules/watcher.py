@@ -81,8 +81,7 @@ async def message_watcher(_, message: Message):
     data = requests.get(f"https://api.safone.tech/spam?text={message}").json()
     is_spam = data['data']['is_spam']
     spam_probability = data['data']['spam_probability']
-    if is_spam=="false":
-        return
+    if is_spam=="true":
     await enable_spam(chat_id)
     is_spm = await is_spam_enabled(chat_id)
     if not is_spm:
