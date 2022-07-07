@@ -89,4 +89,4 @@ async def message_watcher(_, message: Message):
         return
     if user_id in SUDOERS or user_id in (await admins(chat_id)):
         return
-    await delete_spam_notify(message, spam_probability)
+    await delete_spam_notify(message, spam_probability, is_spam)
