@@ -81,6 +81,8 @@ async def message_watcher(_, message: Message):
     data = requests.get(f"https://api.safone.tech/spam?text={message}").json()
     is_spam = data['data']['is_spam']
     spam_probability = data['data']['spam_probability']
+    spam = data['data']['spam']
+    ham = data['data']['ham']
     if is_spam=="False":
        return
     await enable_spam(chat_id)
@@ -89,4 +91,4 @@ async def message_watcher(_, message: Message):
         return
     if user_id in SUDOERS or user_id in (await admins(chat_id)):
         return
-    await delete_spam_notify(message, spam_probability, is_spam)
+    await delete_spam_notify(message, spam_probability, is_spam, spam, ham)
