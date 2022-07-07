@@ -6,14 +6,14 @@ from pyrogram.types import Message
 from spr import SUDOERS, arq, spr
 from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
-                          is_spam_enabled)
+                          is_spam_enabled, enable_arab, disable_arab, is_arab_enabled)
 from spr.utils.misc import admins, get_file_id
 
 __MODULE__ = "Manage"
 __HELP__ = """
 /anti_nsfw [ENABLE|DISABLE] - Enable or disable NSFW Detection.
 /anti_spam [ENABLE|DISABLE] - Enable or disable Spam Detection.
-
+/anti_arab [ENABLE|DISABLE] - Enable or disable arabic spam Detection. 
 /nsfw_scan - Classify a media.
 /spam_scan - Get Spam predictions of replied message.
 """
@@ -92,6 +92,44 @@ async def spam_toggle_func(_, message: Message):
     else:
         await message.reply_text(
             "Unknown Suffix, Use /anti_spam [ENABLE|DISABLE]"
+        )
+
+
+@spr.on_message(
+    filters.command("anti_arab") & ~filters.private, group=3
+)
+async def arab_toggle_func(_, message: Message):
+    if len(message.command) != 2:
+        return await message.reply_text(
+            "Usage: /anti_arab [ENABLE|DISABLE]"
+        )
+    if message.from_user:
+        user = message.from_user
+        chat_id = message.chat.id
+        if user.id not in SUDOERS and user.id not in (
+            await admins(chat_id)
+        ):
+            return await message.reply_text(
+                "You don't have enough permissions"
+            )
+    status = message.text.split(None, 1)[1].strip()
+    status = status.lower()
+    chat_id = message.chat.id
+    if status == "enable":
+        is_arab = await is_arab_enabled(chat_id)
+        if is_arab:
+            return await message.reply("Already enabled.")
+        await enable_arab(chat_id)
+        await message.reply_text("Enabled Arabic Spam Detection.")
+    elif status == "disable":
+        is_arab = await is_arab_enabled(chat_id)
+        if not is_arab:
+            return await message.reply("Already disabled.")
+        await disable_arab(chat_id)
+        await message.reply_text("Disabled Arabic Spam Detection.")
+    else:
+        await message.reply_text(
+            "Unknown Suffix, Use /anti_arab [ENABLE|DISABLE]"
         )
 
 
