@@ -152,9 +152,6 @@ async def arab_delete(message, mode):
             if tuser.id in SUDOERS or tuser.id in (await admins(chat_id)):
                 return
             if search(mdnrgx[0], message.text):
-                # Admins have the foking power
-                if not await check_admin(message, tuser.id):
-                    # Ban the user if the warns are exceeded
                     await message.delete()
     except:
         pass
