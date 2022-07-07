@@ -12,7 +12,7 @@ __MODULE__ = "Manage"
 __HELP__ = """
 /anti_nsfw [ENABLE|DISABLE] - Enable or disable NSFW Detection.
 /anti_spam [ENABLE|DISABLE] - Enable or disable Spam Detection.
-/anti_arab [ENABLE|DISABLE] - Enable or disable arabic spam Detection. 
+
 /nsfw_scan - Classify a media.
 /spam_scan - Get Spam predictions of replied message.
 """
