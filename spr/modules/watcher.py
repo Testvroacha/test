@@ -34,7 +34,7 @@ FORM_AND_REGEXES = {
         | filters.text
     )
 )
-async def message_watcher(_, message: Message):
+async def message_watcher(_, message: Message, mode):
     user_id = None
     chat_id = None
 
@@ -95,7 +95,7 @@ async def message_watcher(_, message: Message):
         return
     is_arab = await is_arab_enabled(chat_id)
     if is_arab:
-     mdnrgx = FORM_AND_REGEXES[arab]
+     mdnrgx = FORM_AND_REGEXES[mode]
     if search(mdnrgx[0], message.text):
                     await message.delete()
     resp = await arq.nlp(text)
