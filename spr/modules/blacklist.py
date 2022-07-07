@@ -92,7 +92,7 @@ async def whitelist_func(_, message: Message):
         is_serve = await is_served_chat(id)
         if not is_serve:              
                await add_served_chat(id)
-            if id not in await blacklisted_chats():                
+        if id not in await blacklisted_chats():                
                return await message.reply_text(
                 "This chat is already whitelisted."
             )
