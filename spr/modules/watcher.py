@@ -85,7 +85,7 @@ async def message_watcher(_, message: Message):
         return
     is_arab = await is_arab_enabled(chat_id)
     if is_arab: 
-    await arab_delete(message)
+       await arab_delete(message)
     resp = await arq.nlp(text)
     if not resp.ok:
         return
