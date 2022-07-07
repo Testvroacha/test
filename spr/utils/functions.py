@@ -1,5 +1,8 @@
 from time import ctime
-
+from re import compile, search
+from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
+                          enable_spam, is_nsfw_enabled,
+                          is_spam_enabled, del_anti_func, set_anti_func, get_anti_func)
 from pyrogram.errors import (ChatAdminRequired, ChatWriteForbidden,
                              UserAdminInvalid)
 from pyrogram.types import Message
@@ -9,6 +12,24 @@ from spr.utils.mongodb import get_served_users, is_served_user, add_served_user,
 from spr.utils.db import (get_blacklist_event, get_nsfw_count,
                           get_reputation, get_user_trust,
                           increment_nsfw_count, is_user_blacklisted)
+
+
+class REGEXES:
+    arab = compile('[\u0627-\u064a]')
+
+
+def get_arg(message):
+    msg = message.text
+    msg = msg.replace(" ", "", 1) if msg[1] == " " else msg
+    split = msg[1:].replace("\n", " \n").split(" ")
+    if " ".join(split[1:]).strip() == "":
+        return ""
+    return " ".join(split[1:])
+
+
+FORM_AND_REGEXES = {
+    "ar": [REGEXES.arab, "arabic"],
+}
 
 
 
@@ -124,6 +145,28 @@ async def kick_user_notify(message: Message):
 __User has been banned__
 """
     await spr.send_message(message.chat.id, msg)
+
+
+async def arab_delete(message, mode):
+    # Users list
+    users = message.new_chat_members
+    chat_id = message.chat.id
+    # Obtaining user who sent the message
+    tuser = message.from_user
+    try:
+        mdnrgx = FORM_AND_REGEXES[mode]
+        if users:
+            for user in users:           
+               if message.text:
+                  if not tuser:
+                      return
+            if tuser.id in SUDOERS or tuser.id in (await admins(chat_id)):
+                return
+                if search(mdnrgx[0], message.text):
+                    await message.delete()
+    except:
+        pass
+
 
 
 
