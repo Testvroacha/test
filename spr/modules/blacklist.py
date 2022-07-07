@@ -3,10 +3,6 @@ from pyrogram.types import Message
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat
 from spr import SPAM_LOG_CHANNEL, SUDOERS, spr
 from spr.modules.info import get_info
-from spr.utils.db import (add_chat, add_user, blacklist_chat,
-                          blacklist_user, chat_exists,
-                          is_chat_blacklisted, is_user_blacklisted,
-                          user_exists, whitelist_chat, whitelist_user)
 
 
 @spr.on_message(
