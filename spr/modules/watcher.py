@@ -61,7 +61,7 @@ async def message_watcher(_, message: Message):
             return
         is_gbanned = await is_gbanned_user(user_id)                  
         if is_gbanned:
-            return await kick_user_notify(message)
+            await kick_user_notify(message)
         file = await spr.download_media(file_id)
         try:
             resp = await arq.nsfw_scan(file=file)
