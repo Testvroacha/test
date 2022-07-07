@@ -34,7 +34,7 @@ FORM_AND_REGEXES = {
         | filters.text
     )
 )
-async def message_watcher(_, message: Message, mode):
+async def message_watcher(_, message: Message):
     user_id = None
     chat_id = None
 
