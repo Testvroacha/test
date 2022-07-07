@@ -34,11 +34,10 @@ async def blacklist_func(_, message: Message):
         except Exception as e:
             return await message.reply_text(str(e))
 
-        if not chat_exists(id):
-            if not await is_served_chat(id):                
-               add_chat(id)
+        is_serve = await is_served_chat(id)
+        if not is_serve:                
                await add_served_chat(id)
-            if id in await blacklisted_chats():
+        if id in await blacklisted_chats():
                return await message.reply_text(
                 "This chat is already blacklisted."
             )
@@ -56,10 +55,8 @@ async def blacklist_func(_, message: Message):
     except Exception as e:
         return await message.reply_text(str(e))
 
-    if not user_exists(id):
         is_served = await is_served_user(id)
-        if not is_served:
-           add_user(id)
+    if not is_served:
         await add_served_user(id)
         is_gbanned = await is_gbanned_user(id)
         if is_gbanned:
@@ -92,9 +89,8 @@ async def whitelist_func(_, message: Message):
         except Exception as e:
             return await message.reply_text(str(e))
 
-        if not chat_exists(id):
-            if not await is_served_chat(id):              
-               add_chat(id)
+        is_serve = await is_served_chat(id)
+        if not is_serve:              
                await add_served_chat(id)
             if id not in await blacklisted_chats():                
                return await message.reply_text(
@@ -108,10 +104,8 @@ async def whitelist_func(_, message: Message):
     except Exception as e:
         return await message.reply_text(str(e))
 
-    if not user_exists(id):
         is_served = await is_served_user(id)
         if not is_served:           
-           add_user(id)
            await add_served_user(id)
            is_gbanned = await is_gbanned_user(id)         
            if not is_gbanned:              
