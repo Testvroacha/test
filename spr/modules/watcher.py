@@ -57,6 +57,8 @@ async def message_watcher(_, message: Message):
         is_gbanned = await is_gbanned_user(user_id)                  
         if is_gbanned:
             await kick_user_notify(message)
+        await enable_nsfw(chat_id)
+        await enable_spam(chat_id)
         file = await spr.download_media(file_id)
         try:
             resp = await arq.nsfw_scan(file=file)
@@ -68,7 +70,6 @@ async def message_watcher(_, message: Message):
         os.remove(file)
         if resp.ok:
             if resp.result.is_nsfw:
-                await enable_nsfw(chat_id)
                 is_nsfw = await is_nsfw_enabled(chat_id)
                 if is_nsfw:
                     return await delete_nsfw_notify(
@@ -78,6 +79,8 @@ async def message_watcher(_, message: Message):
     text = message.text or message.caption
     if not text:
         return
+    await enable_nsfw(chat_id)
+    await enable_spam(chat_id)
     data = requests.get(f"https://api.safone.tech/spam?text={message}").json()
     is_spam = data['data']['is_spam']
     spam_probability = data['data']['spam_probability']
@@ -85,7 +88,6 @@ async def message_watcher(_, message: Message):
     ham = data['data']['ham']
     if is_spam=="False":
        return
-    await enable_spam(chat_id)
     is_spm = await is_spam_enabled(chat_id)
     if not is_spm:
         return
