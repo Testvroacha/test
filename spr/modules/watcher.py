@@ -57,8 +57,6 @@ async def message_watcher(_, message: Message):
         is_gbanned = await is_gbanned_user(user_id)                  
         if is_gbanned:
             await kick_user_notify(message)
-        await enable_nsfw(chat_id)
-        await enable_spam(chat_id)
         file = await spr.download_media(file_id)
         try:
             resp = await arq.nsfw_scan(file=file)
@@ -70,7 +68,6 @@ async def message_watcher(_, message: Message):
         os.remove(file)
         if resp.ok:
             if resp.result.is_nsfw:
-                await enable_nsfw(chat_id)
                 is_nfw = await is_nsfw_enabled(chat_id)
                 if is_nfw:
                     return await delete_nsfw_notify(
@@ -87,7 +84,6 @@ async def message_watcher(_, message: Message):
     ham = data['data']['ham']
     if is_spam=="False":
        return
-    await enable_spam(chat_id)
     is_spm = await is_spam_enabled(chat_id)
     if not is_spm:
         return
