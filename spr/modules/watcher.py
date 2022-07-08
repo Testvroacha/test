@@ -70,8 +70,8 @@ async def message_watcher(_, message: Message):
         os.remove(file)
         if resp.ok:
             if resp.result.is_nsfw:
-                is_nsfw = await is_nsfw_enabled(chat_id)
-                if is_nsfw:
+                is_nfw = await is_nsfw_enabled(chat_id)
+                if is_nfw:
                     return await delete_nsfw_notify(
                         message, resp.result
                     )
