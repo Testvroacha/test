@@ -120,7 +120,7 @@ __Message has been deleted__
 
     keyb = ikb(
         {
-            "Chat": "https://t.me/" + (message.chat.username or "spamlogsss/11"),
+            "Chat": "https://t.me/" + (message.chat.username or "SpamProtectionLogger/4"),
         },
         2
     )
