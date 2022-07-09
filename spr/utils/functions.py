@@ -94,7 +94,7 @@ async def delete_spam_notify(
     spam: float,
     ham: float,
 ):
-    if spam_probability < 95:
+    if spam_probability < 70:
        return
     info = await delete_get_info(message)
     if not info:
