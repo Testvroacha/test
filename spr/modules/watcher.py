@@ -1,5 +1,6 @@
 import os
 import requests
+from requests.exceptions import JSONDecodeError
 from pyrogram import filters
 from pyrogram.types import Message
 from spr import SUDOERS, arq, spr
@@ -79,6 +80,8 @@ async def message_watcher(_, message: Message):
     spam_probability = data['data']['spam_probability']
     spam = data['data']['spam']
     ham = data['data']['ham']
+    except JSONDecodeError:
+       return
     if spam_probability < 90:
        return
     is_spm = await is_spam_enabled(chat_id)
