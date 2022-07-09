@@ -29,6 +29,7 @@ async def message_watcher(_, message: Message):
         if not is_serve:
                await add_served_chat(chat_id)
                await enable_nsfw(chat_id)
+               await enable_spam(chat_id)
         if chat_id in await blacklisted_chats():
                  await spr.leave_chat(chat_id)
 
