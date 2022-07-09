@@ -80,9 +80,7 @@ async def message_watcher(_, message: Message):
     spam_probability = data['data']['spam_probability']
     spam = data['data']['spam']
     ham = data['data']['ham']
-    except JSONDecodeError:
-       return
-    if spam_probability < 90:
+    if spam_probability < 85:
        return
     is_spm = await is_spam_enabled(chat_id)
     if not is_spm:
