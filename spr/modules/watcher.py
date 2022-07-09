@@ -1,6 +1,5 @@
 import os
 import requests
-from requests.exceptions import JSONDecodeError
 from pyrogram import filters
 from pyrogram.types import Message
 from spr import SUDOERS, arq, spr
