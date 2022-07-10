@@ -23,7 +23,7 @@ async def message_watcher(_, message: Message):
     user_id = None
     chat_id = None
 
-    if message.chat.type in ["enums.ChatType.GROUP", "enums.ChatType.SUPERGROUP"]:
+    if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         chat_id = message.chat.id    
         is_serve = await is_served_chat(chat_id)
         if not is_serve:
