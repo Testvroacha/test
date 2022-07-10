@@ -24,7 +24,7 @@ async def admins(chat_id: int):
         "data": [
             member.user.id
             async for member in spr.get_chat_members(
-                chat_id, filter=filter=enums.ChatMembersFilter.ADMINISTRATORS
+                chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS
             )
         ],
     }
@@ -42,7 +42,7 @@ async def admin_cache_func(_, cmu: ChatMemberUpdated):
             "data": [
                 member.user.id
                 async for member in spr.get_chat_members(
-                    cmu.chat.id, filter=filter=enums.ChatMembersFilter.ADMINISTRATORS
+                    cmu.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS
                 )
             ],
         }
