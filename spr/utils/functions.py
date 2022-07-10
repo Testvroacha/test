@@ -6,7 +6,7 @@ from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
 from pyrogram.errors import (ChatAdminRequired, ChatWriteForbidden,
                              UserAdminInvalid)
 from pyrogram.types import Message
-from spr import NSFW_LOG_CHANNEL, SPAM_LOG_CHANNEL, spr
+from spr import spr
 from spr.core import ikb
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
 
@@ -109,33 +109,6 @@ async def delete_spam_notify(
 
 __Message has been deleted__
 """
-    content = message.text or message.caption
-    content = content[:400] + "..."
-    report = f"""
-**SPAM DETECTION**
-{info}
-**Content:**
-{content}
-    """
-
-    keyb = ikb(
-        {
-            "Chat": "https://t.me/" + (message.chat.username or "SpamProtectionLogger/4"),
-        },
-        2
-    )
-    m = await spr.send_message(
-        SPAM_LOG_CHANNEL,
-        report,
-        reply_markup=keyb,
-        disable_web_page_preview=True,
-    )
-
-    keyb = ikb({"View Message": m.link})
-    await spr.send_message(
-        message.chat.id, text=msg, reply_markup=keyb
-    )
-
 
 async def kick_user_notify(message: Message):
     try:
