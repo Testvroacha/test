@@ -1,6 +1,4 @@
 from time import ctime
-import requests
-from requests.exceptions import JSONDecodeError 
 from re import compile, search
 from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
@@ -95,15 +93,7 @@ async def delete_spam_notify(
     is_spam,
     spam: float,
     ham: float,
-    text,
 ):
-    data = requests.get(f"https://api.safone.tech/spam?text={message}").json()
-    is_spam = data['data']['is_spam']
-    spam_probability = data['data']['spam_probability']
-    spam = data['data']['spam']
-    ham = data['data']['ham']
-    except JSONDecodeError:
-      return
     if spam_probability < 80:
        return
     info = await delete_get_info(message)
@@ -158,7 +148,6 @@ async def arab_delete(message, mode):
                           await message.delete()
     except:
         pass
-
 
 
 
