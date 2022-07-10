@@ -1,6 +1,6 @@
 import os
 import requests
-from pyrogram import filters
+from pyrogram import filters, enums
 from pyrogram.types import Message
 from spr import SUDOERS, arq, spr
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat, is_nsfw_enabled, is_spam_enabled, disable_nsfw, disable_spam, enable_nsfw, enable_spam, del_anti_func, set_anti_func, get_anti_func
@@ -23,7 +23,7 @@ async def message_watcher(_, message: Message):
     user_id = None
     chat_id = None
 
-    if message.chat.type in ["group", "supergroup"]:
+    if message.chat.type in ["enums.ChatType.GROUP", "enums.ChatType.SUPERGROUP"]:
         chat_id = message.chat.id    
         is_serve = await is_served_chat(chat_id)
         if not is_serve:
