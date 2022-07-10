@@ -1,7 +1,7 @@
 from pyrogram import filters
 from pyrogram.types import Message
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat
-from spr import SPAM_LOG_CHANNEL, SUDOERS, spr
+from spr import SUDOERS, spr
 from spr.modules.info import get_info
 
 
@@ -36,8 +36,6 @@ async def blacklist_func(_, message: Message):
             )
         await black_chat(id)
         await message.reply_text(f"Blacklisted chat {chat.title}")
-        msg = f"**BLACKLIST EVENT**\n{await get_info(id)}"
-        return await spr.send_message(SPAM_LOG_CHANNEL, text=msg)
 
     if id in SUDOERS:
         return await message.reply_text(
@@ -56,8 +54,6 @@ async def blacklist_func(_, message: Message):
         )
     await add_gban_user(id)
     await message.reply_text(f"Blacklisted user {user.mention}")
-    msg = f"**BLACKLIST EVENT**\n{await get_info(id)}"
-    await spr.send_message(SPAM_LOG_CHANNEL, text=msg)
 
 
 @spr.on_message(
