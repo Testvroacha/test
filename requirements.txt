@@ -1,4 +1,4 @@
-pyrogram==1.4.16
+pyrogram
 requests==2.27.1
 TgCrypto
 python-arq
