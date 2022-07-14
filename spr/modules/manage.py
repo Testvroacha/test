@@ -190,7 +190,7 @@ async def scanNLP(_, message: Message):
     text = r.text or r.caption
     if not text:
         return await message.reply("Can't scan that")
-    data = requests.get(f"https://safoneapi.herokuapp.com/spam?text={text}").json()
+    data = requests.post(f"https://safoneapi.herokuapp.com/spam", json={'text': message.text}).json()
     is_spam = data['data']['is_spam']
     spam_probability = data['data']['spam_probability']
     spam = data['data']['spam']
