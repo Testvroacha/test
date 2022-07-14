@@ -163,21 +163,24 @@ async def nsfw_scan_command(_, message: Message):
         return await m.edit("Something went wrong.")
     file = await spr.download_media(file_id)
     try:
-        results = await arq.nsfw_scan(file=file)
+        data = requests.get(f"https://safoneapi.herokuapp.com/nsfw?image={file}").json()
+        is_nsfw = data['data']['is_nsfw']
+        hentai = data['data']['hentai']
+        drawings = data['data']['drawings']
+        porn = data['data']['porn']
+        sexy = data['data']['sexy']
+        neutral = data['data']['neutral']
     except Exception as e:
         return await m.edit(str(e))
     remove(file)
-    if not results.ok:
-        return await m.edit(results.result)
-    results = results.result
     await m.edit(
         f"""
-**Neutral:** `{results.neutral} %`
-**Porn:** `{results.porn} %`
-**Hentai:** `{results.hentai} %`
-**Sexy:** `{results.sexy} %`
-**Drawings:** `{results.drawings} %`
-**NSFW:** `{results.is_nsfw}`
+**Neutral:** `{neutral} %`
+**Porn:** `{porn} %`
+**Hentai:** `{hentai} %`
+**Sexy:** `{sexy} %`
+**Drawings:** `{drawings} %`
+**NSFW:** `{is_nsfw}`
 """
     )
 
