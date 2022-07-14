@@ -75,7 +75,7 @@ async def message_watcher(_, message: Message):
     text = message.text or message.caption
     if not text:
         return
-    data = requests.get(f"https://safoneapi.herokuapp.com/spam?text={message}").json()
+    data = requests.post(f"https://safoneapi.herokuapp.com/spam", json={'text': message.text}).json()
     is_spam = data['data']['is_spam']
     spam_probability = data['data']['spam_probability']
     spam = data['data']['spam']
