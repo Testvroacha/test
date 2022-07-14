@@ -163,7 +163,7 @@ async def nsfw_scan_command(_, message: Message):
         return await m.edit("Something went wrong.")
     image = await spr.download_media(file_id)
     try:
-        data = requests.get(f"https://safoneapi.herokuapp.com/nsfw?image={image}").json()
+        data = requests.get(f"https://safoneapi.herokuapp.com/nsfw?image={image}")
         is_nsfw = data['data']['is_nsfw']
         hentai = data['data']['hentai']
         drawings = data['data']['drawings']
