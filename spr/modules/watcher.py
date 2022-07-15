@@ -57,7 +57,7 @@ async def message_watcher(_, message: Message):
             await kick_user_notify(message)
         file = await spr.download_media(file_id)
         try:
-            data = requests.post(f"https://safoneapi.herokuapp.com/nsfw", files={'image': open(file, 'rb')}).json()
+            data = requests.post(f"https://api.safone.tech/nsfw", files={'image': open(file, 'rb')}).json()
             is_nsfw = data['data']['is_nsfw']
             hentai = data['data']['hentai']
             drawings = data['data']['drawings']
@@ -81,7 +81,7 @@ async def message_watcher(_, message: Message):
     text = message.text or message.caption
     if not text:
         return
-    data = requests.post(f"https://safoneapi.herokuapp.com/spam", json={'text': message.text}).json()
+    data = requests.post(f"https://api.safone.tech/spam", json={'text': message.text}).json()
     is_spam = data['data']['is_spam']
     spam_probability = data['data']['spam_probability']
     spam = data['data']['spam']
