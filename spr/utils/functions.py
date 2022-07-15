@@ -4,7 +4,7 @@ from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
                           is_spam_enabled, del_anti_func, set_anti_func, get_anti_func)
 from pyrogram.errors import (ChatAdminRequired, ChatWriteForbidden,
-                             UserAdminInvalid)
+                             UserAdminInvalid, MessageDeleteForbidden)
 from pyrogram.types import Message
 from spr import spr
 from spr.core import ikb
@@ -53,6 +53,16 @@ async def get_user_info(message):
 
 
 async def delete_get_info(message: Message):
+    try:
+        await message.delete()
+    except (ChatAdminRequired, UserAdminInvalid, MessageDeleteForbidden):
+        try:
+            return await message.reply_text(
+                "I don't have enough permission to delete "
+                + "this message which is Flagged as Spam."
+            )
+        except ChatWriteForbidden:
+            return await spr.leave_chat(message.chat.id)
     return await get_user_info(message)
 
 
@@ -70,20 +80,10 @@ async def delete_nsfw_notify(
     info = await delete_get_info(message)
     if not info:
         return
-    try:
-        await message.delete()
-    except (ChatAdminRequired, UserAdminInvalid, MessageDeleteForbidden):
-        try:
-            return await message.reply_text(
-                "I don't have enough permission to delete "
-                + "this message which is Flagged as Spam."
-            )
-        except ChatWriteForbidden:
-            return await spr.leave_chat(message.chat.id)
     msg = f"""
 🚨 **NSFW ALERT**  🚔
 {info}
-         **PREDICTION**
+        **PREDICTION**
 
 **Is Nsfw:** `{is_nsfw}`
 **Safe:** `{neutral} %`
