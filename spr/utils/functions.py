@@ -77,11 +77,10 @@ async def delete_nsfw_notify(
 ):
     if neutral > 90:
        return
-    if porn == 0:
-       return
-    info = await delete_get_info(message)
-    if not info:
-        return
+    if neutral < 1:
+        info = await delete_get_info(message)
+        if not info:
+           return
     msg = f"""
 🚨 **NSFW ALERT**  🚔
 {info}
