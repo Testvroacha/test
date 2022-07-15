@@ -75,7 +75,7 @@ async def delete_nsfw_notify(
     porn: float,
     sexy: float,   
 ):
-    if is_nsfw=="false":
+    if is_nsfw=="False":
        return
     info = await delete_get_info(message)
     if not info:
