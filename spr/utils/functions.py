@@ -83,7 +83,7 @@ async def delete_nsfw_notify(
     msg = f"""
 🚨 **NSFW ALERT**  🚔
 {info}
-      **PREDICTION**
+        **PREDICTION**
 
 **Is Nsfw:** `{is_nsfw}`
 **Safe:** `{neutral} %`
