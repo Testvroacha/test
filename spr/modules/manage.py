@@ -169,7 +169,7 @@ async def nsfw_scan_command(_, message: Message):
         drawings = data['data']['drawings']
         porn = data['data']['porn']
         sexy = data['data']['sexy']
-        neutral = data['data']['neutral']int()
+        neutral = data['data']['int(neutral)']
     except Exception as e:
         return await m.edit(str(e))
     remove(file)
