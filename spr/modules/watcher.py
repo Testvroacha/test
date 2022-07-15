@@ -57,19 +57,24 @@ async def message_watcher(_, message: Message):
             await kick_user_notify(message)
         file = await spr.download_media(file_id)
         try:
-            resp = await arq.nsfw_scan(file=file)
+            data = requests.post(f"https://safoneapi.herokuapp.com/nsfw", files={'image': open(file, 'rb')}).json()
+        is_nsfw = data['data']['is_nsfw']
+        hentai = data['data']['hentai']
+        drawings = data['data']['drawings']
+        porn = data['data']['porn']
+        sexy = data['data']['sexy']
+        neutral = data['data']['neutral']
         except Exception:
             try:
                 return os.remove(file)
             except Exception:
                 return
         os.remove(file)
-        if resp.ok:
-            if resp.result.is_nsfw:
+        if is_nsfw=="True":
                 is_nfw = await is_nsfw_enabled(chat_id)
                 if is_nfw:
                     return await delete_nsfw_notify(
-                        message, resp.result
+                        message, is_nsfw, porn, sexy, hentai, drawings, neutral
                     )
 
     text = message.text or message.caption
