@@ -57,36 +57,30 @@ async def message_watcher(_, message: Message):
             await kick_user_notify(message)
         file = await spr.download_media(file_id)
         try:
-            data = requests.post(f"https://api.safone.tech/nsfw", files={'image': open(file, 'rb')}).json()
-            is_nsfw = data['data']['is_nsfw']
-            hentai = data['data']['hentai']
-            drawings = data['data']['drawings']
-            porn = data['data']['porn']
-            sexy = data['data']['sexy']
-            neutral = data['data']['neutral']
+            resp = await arq.nsfw_scan(file=file)
         except Exception:
             try:
                 return os.remove(file)
             except Exception:
                 return
         os.remove(file)
-        if "is_nsfw" == "False":
-            return
-        is_nfw = await is_nsfw_enabled(chat_id)
-        if is_nfw:
-                 return await delete_nsfw_notify(
-                   message, is_nsfw, porn, sexy, hentai, drawings, neutral
+        if resp.ok:
+            if resp.result.is_nsfw:
+                is_nfw = await is_nsfw_enabled(chat_id)
+                if is_nfw:
+                    return await delete_nsfw_notify(
+                        message, resp.result
                     )
 
     text = message.text or message.caption
     if not text:
         return
-    data = requests.post(f"https://api.safone.tech/spam", json={'text': message.text}).json()
+    data = requests.get(f"https://api.safone.tech/spam?text={message}").json()
     is_spam = data['data']['is_spam']
     spam_probability = data['data']['spam_probability']
     spam = data['data']['spam']
     ham = data['data']['ham']
-    if is_spam == "False":
+    if is_spam=="False":
        return
     is_spm = await is_spam_enabled(chat_id)
     if not is_spm:
