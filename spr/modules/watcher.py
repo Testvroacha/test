@@ -70,7 +70,7 @@ async def message_watcher(_, message: Message):
             except Exception:
                 return
         os.remove(file)
-        if is_nsfw=="False":
+        if is_nsfw=="false":
            return
         is_nfw = await is_nsfw_enabled(chat_id)
         if is_nfw:
