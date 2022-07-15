@@ -1,5 +1,4 @@
 from time import ctime
-import requests 
 from re import compile, search
 from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
@@ -69,29 +68,20 @@ async def delete_get_info(message: Message):
 
 async def delete_nsfw_notify(
     message: Message,
-    is_nsfw,
-    neutral: float,
-    drawings: float,
-    hentai: float,
-    porn: float,
-    sexy: float,   
+    result,
 ):
-    if neutral > 90:
-       return
     info = await delete_get_info(message)
     if not info:
-       return
+        return
     msg = f"""
 🚨 **NSFW ALERT**  🚔
 {info}
-        **PREDICTION**
-
-**Is Nsfw:** `{is_nsfw}`
-**Safe:** `{neutral} %`
-**Porn:** `{porn} %`
-**Adult:** `{sexy} %`
-**Hentai:** `{hentai} %`
-**Drawings:** `{drawings} %`
+**Prediction:**
+    **Safe:** `{result.neutral} %`
+    **Porn:** `{result.porn} %`
+    **Adult:** `{result.sexy} %`
+    **Hentai:** `{result.hentai} %`
+    **Drawings:** `{result.drawings} %`
 """
     await spr.send_message(message.chat.id, text=msg)
     
@@ -104,8 +94,6 @@ async def delete_spam_notify(
     spam: float,
     ham: float,
 ):
-    if is_spam == "False":
-       return
     if spam_probability < 80:
        return
     info = await delete_get_info(message)
