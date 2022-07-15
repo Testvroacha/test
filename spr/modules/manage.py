@@ -175,7 +175,7 @@ async def nsfw_scan_command(_, message: Message):
     remove(file)
     await m.edit(
         f"""
-**Neutral:** `{neutral()} %`
+**Neutral:** `{int(neutral)} %`
 **Porn:** `{porn} %`
 **Hentai:** `{hentai} %`
 **Sexy:** `{sexy} %`
