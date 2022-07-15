@@ -55,7 +55,7 @@ async def get_user_info(message):
 async def delete_get_info(message: Message):
     try:
         await message.delete()
-    except (ChatAdminRequired, UserAdminInvalid):
+    except (ChatAdminRequired, UserAdminInvalid, MessageDeleteForbidden):
         try:
             return await message.reply_text(
                 "I don't have enough permission to delete "
