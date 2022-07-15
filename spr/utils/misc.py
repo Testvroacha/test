@@ -1,7 +1,6 @@
 from asyncio import gather, sleep
-from datetime import datetime
+from datetime import datetime, time, ctime
 from math import ceil
-from time import time, ctime
 from pyrogram import enums
 from pyrogram.types import InlineKeyboardButton, ChatMemberUpdated
 
