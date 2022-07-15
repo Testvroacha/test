@@ -75,7 +75,7 @@ async def delete_nsfw_notify(
     porn: float,
     sexy: float,   
 ):
-    if is_nsfw=="False":
+    if is_nsfw == "False":
        return
     if neutral > 90:
        return
@@ -105,7 +105,7 @@ async def delete_spam_notify(
     spam: float,
     ham: float,
 ):
-    if is_spam=="False":
+    if is_spam == "False":
        return
     if spam_probability < 80:
        return
