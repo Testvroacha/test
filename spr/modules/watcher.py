@@ -58,12 +58,12 @@ async def message_watcher(_, message: Message):
         file = await spr.download_media(file_id)
         try:
             data = requests.post(f"https://safoneapi.herokuapp.com/nsfw", files={'image': open(file, 'rb')}).json()
-        is_nsfw = data['data']['is_nsfw']
-        hentai = data['data']['hentai']
-        drawings = data['data']['drawings']
-        porn = data['data']['porn']
-        sexy = data['data']['sexy']
-        neutral = data['data']['neutral']
+            is_nsfw = data['data']['is_nsfw']
+            hentai = data['data']['hentai']
+            drawings = data['data']['drawings']
+            porn = data['data']['porn']
+            sexy = data['data']['sexy']
+            neutral = data['data']['neutral']
         except Exception:
             try:
                 return os.remove(file)
