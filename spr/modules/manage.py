@@ -163,7 +163,7 @@ async def nsfw_scan_command(_, message: Message):
         return await m.edit("Something went wrong.")
     file = await spr.download_media(file_id)
     try:
-        data = requests.post(f"https://api.safone.tech/nsfw", files={'image': open(file, 'rb')}).json()
+        data = requests.post(f"https://api.safone.tech/nsfw", json={'image': open(file, 'rb')}).json()
         is_nsfw = data['data']['is_nsfw']
         hentai = data['data']['hentai']
         drawings = data['data']['drawings']
@@ -175,7 +175,7 @@ async def nsfw_scan_command(_, message: Message):
     remove(file)
     await m.edit(
         f"""
-**Neutral:** `{neutral} %`
+**Neutral:** `{neutral}() %`
 **Porn:** `{porn} %`
 **Hentai:** `{hentai} %`
 **Sexy:** `{sexy} %`
