@@ -1,6 +1,7 @@
 
 from re import compile, search
 from time import ctime
+from config import SPAM_LOG_CHANNEL
 from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
                           is_spam_enabled, del_anti_func, set_anti_func, get_anti_func)
@@ -118,7 +119,33 @@ async def delete_spam_notify(
 
 __Message has been deleted__
 """
-    await spr.send_message(message.chat.id, text=msg)
+    content = message.text or message.caption
+    content = content[:400] + "..."
+    report = f"""
+**SPAM DETECTION**
+{info}
+**Content:**
+{content}
+    """
+
+    keyb = ikb(
+        {
+            "Chat": "https://t.me/" + (message.chat.username or "spamlogsss/11"),
+        },
+        2
+    )
+    m = await spr.send_message(
+        SPAM_LOG_CHANNEL,
+        report,
+        reply_markup=keyb,
+        disable_web_page_preview=True,
+    )
+
+    keyb = ikb({"View Message": m.link})
+    await spr.send_message(
+        message.chat.id, text=msg, reply_markup=keyb
+    )
+
 
 async def kick_user_notify(message: Message):
     try:
