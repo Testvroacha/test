@@ -57,19 +57,24 @@ async def message_watcher(_, message: Message):
             await kick_user_notify(message)
         file = await spr.download_media(file_id)
         try:
-            resp = await arq.nsfw_scan(file=file)
+            data = requests.post(f"https://api.safone.tech/nsfw", files={'image': open(file, 'rb')}).json()
+            is_nsfw = data['data']['is_nsfw']
+            hentai = int(data['data']['hentai'])
+            drawings = int(data['data']['drawings'])
+            porn = int(data['data']['porn'])
+            sexy = int(data['data']['sexy'])
+            neutral = int(data['data']['neutral'])
         except Exception:
             try:
                 return os.remove(file)
             except Exception:
                 return
         os.remove(file)
-        if resp.ok:
-            if resp.result.is_nsfw:
-                is_nfw = await is_nsfw_enabled(chat_id)
-                if is_nfw:
+        if is_nsfw == True:
+              is_nfw = await is_nsfw_enabled(chat_id)
+              if is_nfw:
                     return await delete_nsfw_notify(
-                        message, resp.result
+                    message, is_nsfw, porn, sexy, hentai, drawings, neutral
                     )
 
     text = message.text or message.caption
