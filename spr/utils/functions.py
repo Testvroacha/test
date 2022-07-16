@@ -1,4 +1,4 @@
-from datetime import ctime
+
 from re import compile, search
 from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
