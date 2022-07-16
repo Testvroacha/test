@@ -80,7 +80,7 @@ async def message_watcher(_, message: Message):
     spam_probability = data['data']['spam_probability']
     spam = data['data']['spam']
     ham = data['data']['ham']
-    if is_spam=="False":
+    if is_spam == False:
        return
     is_spm = await is_spam_enabled(chat_id)
     if not is_spm:
