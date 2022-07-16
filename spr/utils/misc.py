@@ -1,5 +1,5 @@
 from asyncio import gather, sleep
-from datetime import datetime, time
+from datetime import datetime
 from math import ceil
 from pyrogram import enums
 from pyrogram.types import InlineKeyboardButton, ChatMemberUpdated
@@ -19,7 +19,7 @@ async def admins(chat_id: int):
             return admins_in_chat[chat_id]["data"]
 
     admins_in_chat[chat_id] = {
-        "last_updated_at": time(),
+        "last_updated_at": datetime.time(),
         "data": [
             member.user.id
             async for member in spr.get_chat_members(
@@ -37,7 +37,7 @@ async def admins(chat_id: int):
 async def admin_cache_func(_, cmu: ChatMemberUpdated):
     if cmu.old_chat_member and cmu.old_chat_member.promoted_by:
         admins_in_chat[cmu.chat.id] = {
-            "last_updated_at": time(),
+            "last_updated_at": datetime.time(),
             "data": [
                 member.user.id
                 async for member in spr.get_chat_members(
