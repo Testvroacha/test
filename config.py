@@ -19,8 +19,10 @@ if not DEPLOYING_ON_HEROKU:
     SUDOERS = [5545068262]
     ARQ_API_KEY = "SCQEDR-KAVRFC-SPYXEK-MVUKWI-ARQ"  # Get it from @ARQRobot
     MONGO_DB_URL = "mongodb+srv://spam:spam@cluster0.2vykm.mongodb.net/?retryWrites=true&w=majority"
+    SPAM_LOG_CHANNEL = -1001667411233
 else:
     BOT_TOKEN = env.get("BOT_TOKEN", "5557458280:AAGqsLMWO9KcHOk2JJwZSlH7o-raX_GLH9Q")
     SUDOERS = [int(x) for x in env.get("SUDO_USERS_ID", "5545068262").split()]
     ARQ_API_KEY = env.get("ARQ_API_KEY", "SCQEDR-KAVRFC-SPYXEK-MVUKWI-ARQ")
     MONGO_DB_URL = env.get("MONGO_DB_URL", "mongodb+srv://spam:spam@cluster0.2vykm.mongodb.net/?retryWrites=true&w=majority")
+    SPAM_LOG_CHANNEL = int(env.get("SPAM_LOG_CHANNEL", "-1001667411233"))
