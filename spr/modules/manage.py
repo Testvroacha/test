@@ -104,12 +104,12 @@ async def spam_toggle_func(_, message: Message):
 
 
 @spr.on_message(
-    filters.command("antiarab") & ~filters.private, group=3
+    filters.command("anarabokk") & ~filters.private, group=3
 )
 async def arab_toggle_func(_, message: Message):
     if len(message.command) != 2:
         return await message.reply_text(
-            "Usage: /antiarab [ENABLE|DISABLE]"
+            "Usage: /antiarab [on|off]"
         )
     if message.from_user:
         user = message.from_user
