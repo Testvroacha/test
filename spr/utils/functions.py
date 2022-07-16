@@ -107,6 +107,7 @@ async def delete_spam_notify(
 
 __Message has been deleted__
 """
+    await spr.send_message(message.chat.id, text=msg)
 
 async def kick_user_notify(message: Message):
     try:
