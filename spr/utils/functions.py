@@ -98,7 +98,7 @@ async def delete_nsfw_notify(
 
 async def delete_spam_notify(
     message: Message,
-    spam_probability,
+    spam_probability: float,
     is_spam,
     spam: float,
     ham: float,
