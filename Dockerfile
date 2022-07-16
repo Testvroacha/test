@@ -5,4 +5,4 @@ RUN pip3 install -U pip
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir -U -r requirements.txt
 COPY . .
-RUN ["python3", "-m", "spr"]
+CMD ["python3", "-m", "spr"]
