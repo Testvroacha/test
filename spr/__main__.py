@@ -46,14 +46,14 @@ async def help_command(_, message: Message):
         return await message.reply("Pm Me For Help", reply_markup=kb)
     buttons = [
             [
-                InlineKeyboardButton("✘ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀᴛꜱ", url='https://t.me/{BOT_USERNAME}?startgroup=true'),
+                InlineKeyboardButton("✚ Add me to your Group", url="https://t.me/{BOT_USERNAME}?startgroup=true"),
             ],
             [
-                InlineKeyboardButton("✘ ꜱᴜᴘᴘᴏʀᴛ", url=f"https://t.me/CheemsBotChat"),
-                InlineKeyboardButton("✘ ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/CheemsUserbot"),
+                InlineKeyboardButton("📨 Support", url=f"https://t.me/CheemsBotChat"),
+                InlineKeyboardButton("📨 Channel", url=f"https://t.me/CheemsUserbot"),
             ],
             [
-                InlineKeyboardButton("✘ ʜᴇʟᴘ ᴀɴᴅ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="bot_commands"),
+                InlineKeyboardButton("🗒 Commands", callback_data="bot_commands"),
             ]
             ]
     reply_markup = InlineKeyboardMarkup(buttons)
