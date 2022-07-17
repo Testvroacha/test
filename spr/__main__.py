@@ -7,7 +7,6 @@ from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
 from spr import BOT_USERNAME, session, spr
-from spr.core import ikb
 from spr.modules import MODULES
 from spr.utils.misc import paginate_modules
 
