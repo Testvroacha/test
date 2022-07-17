@@ -48,7 +48,7 @@ async def help_command(_, message: Message):
             ],
             ]
         reply_markup = InlineKeyboardMarkup(buttons)
-        return await message.reply("Pm Me For Help", reply_markup=reply_markup)
+        return await message.reply("Click Me For Help", reply_markup=reply_markup)
     buttons = [
             [
                 InlineKeyboardButton("✚ Add me to your Group", url=f"https://t.me/{BOT_USERNAME}?startgroup=new"),
