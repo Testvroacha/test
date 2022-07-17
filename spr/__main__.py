@@ -56,7 +56,7 @@ async def help_command(_, message: Message):
                 InlineKeyboardButton("✘ ʜᴇʟᴘ ᴀɴᴅ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="bot_commands"),
             ]
             ]
-        reply_markup = InlineKeyboardMarkup(buttons)
+    reply_markup = InlineKeyboardMarkup(buttons)
     mention = message.from_user.mention
     await message.reply_photo(
         "https://telegra.ph//file/b2e55cb639b2ffe3b990c.jpg",
