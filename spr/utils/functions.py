@@ -1,6 +1,9 @@
 
 from re import compile, search
 from time import ctime
+from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
+                            InlineKeyboardMarkup, Message)
+
 from config import SPAM_LOG_CHANNEL
 from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
