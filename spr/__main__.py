@@ -45,11 +45,9 @@ async def help_command(_, message: Message):
         kb = ikb({"Help": f"https://t.me/{BOT_USERNAME}?start=help"})
         return await message.reply("Pm Me For Help", reply_markup=kb)
     kb = ikb(
-        {
             {"Help": "bot_commands"},
             {"Add Me To Your Group": f"https://t.me/{BOT_USERNAME}?startgroup=new"},
             {"Support Chat": "https://t.me/CheemsUserbot"},
-        }
     )
     mention = message.from_user.mention
     await message.reply_photo(
