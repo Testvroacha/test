@@ -44,13 +44,18 @@ async def help_command(_, message: Message):
     if message.chat.type != enums.ChatType.PRIVATE:
         kb = ikb({"Help": f"https://t.me/{BOT_USERNAME}?start=help"})
         return await message.reply("Pm Me For Help", reply_markup=kb)
-    kb = ikb(
-            {"Help": "bot_commands"},
-    )
-    ikb(
-      {"Add Me To Your Group": f"https://t.me/{BOT_USERNAME}?startgroup=new"},
-      {"Support Chat": "https://t.me/CheemsUserbot"},
-    )
+    kb = [
+            [
+                InlineKeyboardButton("✘ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀᴛꜱ", url='https://t.me/{BOT_USERNAME}?startgroup=true'),
+            ],
+            [
+                InlineKeyboardButton("✘ ꜱᴜᴘᴘᴏʀᴛ", url=f"https://t.me/CheemsBotChat"),
+                InlineKeyboardButton("✘ ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/CheemsUserbot"),
+            ],
+            [
+                InlineKeyboardButton("✘ ʜᴇʟᴘ ᴀɴᴅ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="bot_commands"),
+            ]
+            ]
     mention = message.from_user.mention
     await message.reply_photo(
         "https://telegra.ph//file/b2e55cb639b2ffe3b990c.jpg",
