@@ -42,8 +42,13 @@ async def main():
 @spr.on_message(filters.command(["help", "start"]), group=2)
 async def help_command(_, message: Message):
     if message.chat.type != enums.ChatType.PRIVATE:
-        kb = ikb({"Help": f"https://t.me/{BOT_USERNAME}?start=help"})
-        return await message.reply("Pm Me For Help", reply_markup=kb)
+        buttons = [
+            [
+                InlineKeyboardButton("Pm Me for Help", url=f"https://t.me/{BOT_USERNAME}?start=help"),
+            ],
+            ]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        return await message.reply("Pm Me For Help", reply_markup=reply_markup)
     buttons = [
             [
                 InlineKeyboardButton("✚ Add me to your Group", url=f"https://t.me/{BOT_USERNAME}?startgroup=new"),
