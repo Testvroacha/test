@@ -140,7 +140,7 @@ __Message has been deleted__
 
     buttons = [
             [
-                InlineKeyboardButton("Chat", url="https://t.me/" + (message.chat.username or "spamlogsss/11"),
+                InlineKeyboardButton("Chat", url="https://t.me/" + (message.chat.username or "spamlogsss/11")),
             ],
             ]
     reply_markup = InlineKeyboardMarkup(buttons)
