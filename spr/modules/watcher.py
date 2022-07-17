@@ -59,11 +59,11 @@ async def message_watcher(_, message: Message):
         try:
             data = requests.post(f"https://api.safone.tech/nsfw", files={'image': open(file, 'rb')}).json()
             is_nsfw = data['data']['is_nsfw']
-            hentai = data['data']['hentai']
-            drawings = data['data']['drawings']
-            porn = data['data']['porn']
-            sexy = data['data']['sexy']
-            neutral = data['data']['neutral']
+            hentai = int(data['data']['hentai'])
+            drawings = int(data['data']['drawings'])
+            porn = int(data['data']['porn'])
+            sexy = int(data['data']['sexy'])
+            neutral = int(data['data']['neutral'])
         except Exception:
             try:
                 return os.remove(file)
