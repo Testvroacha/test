@@ -32,7 +32,7 @@ def keyboard(buttons_list, row_width: int = 2):
     return buttons
 
 
-def ikb(data: dict):
+def ikb(data: dict, row_width: int = 2):
     """Converts a dict to pyrogram buttons using item's key and value
     Ex: dict_to_keyboard({"click here": "this is callback data"})"""
-    return keyboard(data.items())
+    return keyboard(data.items(), row_width=2)
