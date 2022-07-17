@@ -12,7 +12,6 @@ from pyrogram.errors import (ChatAdminRequired, ChatWriteForbidden,
                              UserAdminInvalid)
 from pyrogram.types import Message
 from spr import spr
-from spr.core import ikb
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
 
 
@@ -130,13 +129,6 @@ __Message has been deleted__
 **Content:**
 {content}
     """
-
-    keyb = ikb(
-        {
-            "Chat": "https://t.me/" + (message.chat.username or "spamlogsss/11"),
-        },
-        2
-    )
 
     buttons = [
             [
