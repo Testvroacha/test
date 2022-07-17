@@ -71,11 +71,11 @@ async def delete_get_info(message: Message):
 async def delete_nsfw_notify(
     message: Message,
     is_nsfw,
-    neutral: int,
-    drawings: int,
-    hentai: int,
-    porn: int,
-    sexy: int,   
+    neutral: integer,
+    drawings: integer,
+    hentai: integer,
+    porn: integer,
+    sexy: integer,   
 ):
     if neutral > 85:
        return
@@ -99,7 +99,7 @@ async def delete_nsfw_notify(
 
 async def delete_spam_notify(
     message: Message,
-    spam_probability: float,
+    spam_probability: integer,
     is_spam,
     spam: float,
     ham: float,
