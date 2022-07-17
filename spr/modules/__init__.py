@@ -7,4 +7,3 @@ MODULES = [
     for f in mod_paths
     if not f.endswith("__.py")  # to exclude __init__.py
 ]
-import_module("spr.modules.__main__")
