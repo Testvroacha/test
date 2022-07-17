@@ -44,7 +44,7 @@ async def help_command(_, message: Message):
     if message.chat.type != enums.ChatType.PRIVATE:
         kb = ikb({"Help": f"https://t.me/{BOT_USERNAME}?start=help"})
         return await message.reply("Pm Me For Help", reply_markup=kb)
-    kb = [
+    buttons = [
             [
                 InlineKeyboardButton("✘ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀᴛꜱ", url='https://t.me/{BOT_USERNAME}?startgroup=true'),
             ],
@@ -56,12 +56,13 @@ async def help_command(_, message: Message):
                 InlineKeyboardButton("✘ ʜᴇʟᴘ ᴀɴᴅ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="bot_commands"),
             ]
             ]
+        reply_markup = InlineKeyboardMarkup(buttons)
     mention = message.from_user.mention
     await message.reply_photo(
         "https://telegra.ph//file/b2e55cb639b2ffe3b990c.jpg",
         caption=f"Hi {mention}, I'm SpamProtection_Bot,"
         + " Choose An Option From Below.",
-        reply_markup=kb,
+        reply_markup=reply_markup,
     )
 
 
