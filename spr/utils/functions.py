@@ -71,11 +71,11 @@ async def delete_get_info(message: Message):
 async def delete_nsfw_notify(
     message: Message,
     is_nsfw,
-    neutral: int,
-    drawings: int,
-    hentai: int,
-    porn: int,
-    sexy: int,   
+    neutral: float,
+    drawings: float,
+    hentai: float,
+    porn: float,
+    sexy: float,   
 ):
     info = await delete_get_info(message)
     if not info:
