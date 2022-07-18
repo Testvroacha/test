@@ -142,8 +142,6 @@ __Message has been deleted__
         reply_markup=reply_markup,
         disable_web_page_preview=True,
     )
-
-    keyb = ikb({"View Message": m.link})
     buttons = [
             [
                 InlineKeyboardButton("View Message", url="(m.link)"),
