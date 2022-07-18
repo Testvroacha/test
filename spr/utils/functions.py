@@ -1,7 +1,6 @@
 
 from re import compile, search
 from time import ctime
-from spr.core import ikb
 from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
@@ -134,7 +133,6 @@ __Message has been deleted__
         SPAM_LOG_CHANNEL,
         report,
     )
-    keyb = ikb({"View Message": m.link})
     buttons = [
             [
                 InlineKeyboardButton("View Message", url=(m.link)),
