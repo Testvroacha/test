@@ -135,8 +135,14 @@ __Message has been deleted__
         report,
     )
     keyb = ikb({"View Message": m.link})
+    buttons = [
+            [
+                InlineKeyboardButton("View Message", url="https://t.me/" + (m.link)),
+            ],
+            ]
+    reply_markup = InlineKeyboardMarkup(buttons)
     await spr.send_message(
-        message.chat.id, text=msg, reply_markup=keyb
+        message.chat.id, text=msg, reply_markup=reply_markup
     )
 
 
