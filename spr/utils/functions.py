@@ -1,6 +1,7 @@
 
 from re import compile, search
 from time import ctime
+from spr.core import ikb
 from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
@@ -133,14 +134,9 @@ __Message has been deleted__
         SPAM_LOG_CHANNEL,
         report,
     )
-    buttons = [
-            [
-                InlineKeyboardButton("View Message", callback_data="m.link"),
-            ],
-            ]
-    reply_markup = InlineKeyboardMarkup(buttons)
+    keyb = ikb({"View Message": m.link})
     await spr.send_message(
-        message.chat.id, text=msg, reply_markup=reply_markup
+        message.chat.id, text=msg, reply_markup=keyb
     )
 
 
