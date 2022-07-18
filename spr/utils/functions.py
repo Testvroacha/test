@@ -129,22 +129,13 @@ __Message has been deleted__
 **Content:**
 {content}
     """
-
-    buttons = [
-            [
-                InlineKeyboardButton("Chat", url="https://t.me/" + (message.chat.username or "spamlogsss/11")),
-            ],
-            ]
-    reply_markup = InlineKeyboardMarkup(buttons)
     m = await spr.send_message(
         SPAM_LOG_CHANNEL,
         report,
-        reply_markup=reply_markup,
-        disable_web_page_preview=True,
     )
     buttons = [
             [
-                InlineKeyboardButton("View Message", "m.link"),
+                InlineKeyboardButton("View Message", "(m.link)"),
             ],
             ]
     reply_markup = InlineKeyboardMarkup(buttons)
