@@ -130,14 +130,14 @@ __Message has been deleted__
 **Content:**
 {content}
     """
-    normie = await spr.send_message(
+    m = await spr.send_message(
         SPAM_LOG_CHANNEL,
         report,
     )
     keyb = ikb({"View Message": m.link})
     buttons = [
             [
-                InlineKeyboardButton("View Message", url=(normie.link)),
+                InlineKeyboardButton("View Message", url=(m.link)),
             ],
             ]
     reply_markup = InlineKeyboardMarkup(buttons)
