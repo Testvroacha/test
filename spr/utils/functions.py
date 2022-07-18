@@ -135,7 +135,7 @@ __Message has been deleted__
     )
     buttons = [
             [
-                InlineKeyboardButton({"View Message": "m.link"}),
+                InlineKeyboardButton({"View Message", "m.link"}),
             ],
             ]
     reply_markup = InlineKeyboardMarkup(buttons)
