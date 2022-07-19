@@ -6,3 +6,4 @@ pykeyboard
 python-dotenv
 motor
 pymongo[srv]
+safoneapi
