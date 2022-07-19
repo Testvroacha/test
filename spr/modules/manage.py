@@ -196,7 +196,7 @@ async def scanNLP(_, message: Message):
         return await m.edit(str(e))
     if not results.data:
         return await m.edit("Something went wrong.")
-    result = results.data[0]
+    result = results.data
     msg = f"""
 **Is Spam:** {result.is_spam}
 **Spam Probability:** {result.spam_probability} %
