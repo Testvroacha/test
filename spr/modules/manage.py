@@ -172,12 +172,12 @@ async def nsfw_scan_command(_, message: Message):
     resp = results.data
     await m.edit(
         f"""
-**Neutral:** `{resp.neutral} %`
-**Porn:** `{resp.porn} %`
-**Hentai:** `{resp.hentai} %`
-**Sexy:** `{resp.sexy} %`
-**Drawings:** `{resp.drawings} %`
-**NSFW:** `{resp.is_nsfw}`
+**Neutral:** {int(resp.neutral)} %
+**Porn:** {int(resp.porn)} %
+**Hentai:** {int(resp.hentai)} %
+**Sexy:** {int(resp.sexy)} %
+**Drawings:** {int(resp.drawings)} %
+**NSFW:** {int(resp.is_nsfw)}
 """
     )
 
