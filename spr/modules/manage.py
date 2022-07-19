@@ -163,10 +163,11 @@ async def nsfw_scan_command(_, message: Message):
         return await m.edit("Something went wrong.")
     file = await spr.download_media(file_id)
     try:
-        resp = await api.nsfw_scan(file=file)
+        results = await api.nsfw_scan(file=file)
     except Exception as e:
         return await m.edit(str(e))
     remove(file)
+    resp = results.data
     await m.edit(
         f"""
 **Neutral:** `{resp.neutral} %`
