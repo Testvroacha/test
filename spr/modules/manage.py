@@ -3,7 +3,7 @@ import requests
 from re import compile, search
 from pyrogram import filters
 from pyrogram.types import Message
-from spr import SUDOERS, arq, spr, api
+from spr import SUDOERS, spr, api
 from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
                           is_spam_enabled, del_anti_func, set_anti_func, get_anti_func)
