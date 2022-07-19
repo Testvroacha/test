@@ -2,7 +2,7 @@ import os
 import requests
 from pyrogram import filters, enums
 from pyrogram.types import Message
-from spr import SUDOERS, arq, spr, api
+from spr import SUDOERS, spr, api
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat, is_nsfw_enabled, is_spam_enabled, disable_nsfw, disable_spam, enable_nsfw, enable_spam, del_anti_func, set_anti_func, get_anti_func
 from spr.utils.functions import (delete_nsfw_notify,
                                  delete_spam_notify, kick_user_notify, arab_delete)
