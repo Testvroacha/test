@@ -1,7 +1,6 @@
 pyrogram
-requests==2.27.1
+requests
 TgCrypto
-python-arq
 pykeyboard
 python-dotenv
 motor
