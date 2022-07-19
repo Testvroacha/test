@@ -3,7 +3,7 @@ import requests
 from re import compile, search
 from pyrogram import filters
 from pyrogram.types import Message
-from spr import SUDOERS, arq, spr
+from spr import SUDOERS, arq, spr, api
 from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
                           is_spam_enabled, del_anti_func, set_anti_func, get_anti_func)
@@ -163,24 +163,21 @@ async def nsfw_scan_command(_, message: Message):
         return await m.edit("Something went wrong.")
     file = await spr.download_media(file_id)
     try:
-        data = requests.post(f"https://api.safone.tech/nsfw", files={'image': open(file, 'rb')}).json()
-        is_nsfw = data['data']['is_nsfw']
-        hentai = int(data['data']['hentai'])
-        drawings = int(data['data']['drawings'])
-        porn = int(data['data']['porn'])
-        sexy = int(data['data']['sexy'])
-        neutral = int(data['data']['neutral'])
+        results = await api.nsfw_scan(file=file)
     except Exception as e:
         return await m.edit(str(e))
     remove(file)
+    if not results.ok:
+        return await m.edit(results.result)
+    results = results.result
     await m.edit(
         f"""
-**Neutral:** `{neutral} %`
-**Porn:** `{porn} %`
-**Hentai:** `{hentai} %`
-**Sexy:** `{sexy} %`
-**Drawings:** `{drawings} %`
-**NSFW:** `{is_nsfw}`
+**Neutral:** `{results.neutral} %`
+**Porn:** `{results.porn} %`
+**Hentai:** `{results.hentai} %`
+**Sexy:** `{results.sexy} %`
+**Drawings:** `{results.drawings} %`
+**NSFW:** `{results.is_nsfw}`
 """
     )
 
