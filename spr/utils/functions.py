@@ -82,11 +82,11 @@ async def delete_nsfw_notify(
 {info}
 **Prediction:**
     **Is Nsfw:** {resp.is_nsfw}
-    **Safe:** int({resp.neutral}) %
-    **Porn:** int({resp.porn}) %
-    **Adult:** int({resp.sexy}) %
-    **Hentai:** int({resp.hentai}) %
-    **Drawings:** int({resp.drawings}) %
+    **Safe:** {int(resp.neutral)} %
+    **Porn:** {int(resp.porn)} %
+    **Adult:** {int(resp.sexy)} %
+    **Hentai:** {int(resp.hentai)} %
+    **Drawings:** {int(resp.drawings)} %
 """
     await spr.send_message(message.chat.id, text=msg)
     
