@@ -5,7 +5,7 @@ from pyrogram import enums
 from pyrogram.types import InlineKeyboardButton, ChatMemberUpdated
 
 
-from spr import SESSION_NAME, SUDOERS, spr
+from spr import SUDOERS, spr
 
 
 admins_in_chat = {}
