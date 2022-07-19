@@ -167,6 +167,8 @@ async def nsfw_scan_command(_, message: Message):
     except Exception as e:
         return await m.edit(str(e))
     remove(file)
+    if not results.data:
+        return await m.edit("Something went wrong.")
     resp = results.data
     await m.edit(
         f"""
@@ -188,15 +190,16 @@ async def scanNLP(_, message: Message):
     text = r.text or r.caption
     if not text:
         return await message.reply("Can't scan that")
-    data = requests.post(f"https://api.safone.tech/spam", json={'text': text}).json()
-    is_spam = data['data']['is_spam']
-    spam_probability = data['data']['spam_probability']
-    spam = data['data']['spam']
-    ham = data['data']['ham']
+    results = await api.spam_scan(text)
+    except Exception as e:
+        return await m.edit(str(e))
+    if not results.data:
+        return await m.edit("Something went wrong.")
+    result = results.data[0]
     msg = f"""
-**Is Spam:** {is_spam}
-**Spam Probability:** {spam_probability} %
-**Spam:** {spam}
-**Ham:** {ham}
+**Is Spam:** {result.is_spam}
+**Spam Probability:** {result.spam_probability} %
+**Spam:** {result.spam}
+**Ham:** {result.ham}
 """
     await message.reply(msg, quote=True)
