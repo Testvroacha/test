@@ -76,16 +76,16 @@ async def message_watcher(_, message: Message):
     text = message.text or message.caption
     if not text:
         return
-    data = requests.post(f"https://api.safone.tech/spam", json={'text': text}).json()
-    is_spam = data['data']['is_spam']
-    spam_probability = data['data']['spam_probability']
-    spam = data['data']['spam']
-    ham = data['data']['ham']
-    if is_spam == False:
-       return
+    try:
+       resp = await api.spam_scan(text)
+    if not resp.data:
+        return
+    datas = resp.data
+    if not datas.is_spam:
+        return
     is_spm = await is_spam_enabled(chat_id)
     if not is_spm:
         return
     if user_id in SUDOERS or user_id in (await admins(chat_id)):
         return
-    await delete_spam_notify(message, spam_probability, is_spam, spam, ham)
+    await delete_spam_notify(message, datas)
