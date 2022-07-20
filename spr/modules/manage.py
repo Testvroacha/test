@@ -194,7 +194,7 @@ async def scanNLP(_, message: Message):
        resp = await api.spam_scan(text)
     except Exception as e:
         return await message.reply(str(e))
-    if not results.data:
+    if not resp.data:
         return await message.reply("Something went wrong.")
     datas = resp.data
     msg = f"""
