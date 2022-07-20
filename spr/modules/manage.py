@@ -1,5 +1,4 @@
 from os import remove
-import requests
 from re import compile, search
 from pyrogram import filters
 from pyrogram.types import Message
