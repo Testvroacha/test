@@ -76,8 +76,7 @@ async def message_watcher(_, message: Message):
     text = message.text or message.caption
     if not text:
         return
-    try:
-       resp = await api.spam_scan(text)
+    resp = await api.spam_scan(text)
     if not resp.data:
         return
     datas = resp.data
