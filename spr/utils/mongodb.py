@@ -199,28 +199,35 @@ async def disable_spam(chat_id: int):
 
 
 
-antidb = db.anti
+arabdb = db.arab
 
 
-async def set_anti_func(chat_id, status, mode):
-    anti_f = await antidb.find_one({"_id": chat_id})
-    if anti_f:
-        await antidb.update_one({"_id": chat_id}, {"$set": {"status": status, "mode": mode}})
-    else:
-        await antidb.insert_one({"_id": chat_id, "status": status, "mode": mode})
+async def get_arab_chats() -> list:
+    chats = arabdb.find({"chat_id": {"$lt": 0}})
+    if not chats:
+        return []
+    chats_list = []
+    for chat in await chats.to_list(length=1000000000):
+        chats_list.append(chat)
+    return chats_list
 
-async def get_anti_func(chat_id):
-    anti_f = await antidb.find_one({"_id": chat_id})
-    if not anti_f:
-        return None
-    else:
-        snm = [anti_f["status"], anti_f["mode"]]
-        return snm
 
-async def del_anti_func(chat_id):
-    anti_f = await antidb.find_one({"_id": chat_id})
-    if anti_f:
-        await antidb.delete_one({"_id": chat_id})
-        return True
-    else:
+async def is_arab_enabled(chat_id: int) -> bool:
+    chat = await arabdb.find_one({"chat_id": chat_id})
+    if not chat:
         return False
+    return True
+
+
+async def enable_arab(chat_id: int):
+    is_arab = await is_arab_enabled(chat_id)
+    if is_arab:
+        return
+    return await arabdb.insert_one({"chat_id": chat_id})
+
+
+async def disable_arab(chat_id: int):
+    is_arab = await is_arab_enabled(chat_id)
+    if not is_arab:
+        return
+    return await arabdb.delete_one({"chat_id": chat_id})
