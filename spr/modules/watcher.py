@@ -83,7 +83,7 @@ async def message_watcher(_, message: Message):
     is_arab = await is_arab_enabled(chat_id)
     if is_arab:
         if "ARABIC" in check:
-        try:
+           try:
             await message.delete()
         except:
             pass
