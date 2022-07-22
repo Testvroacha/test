@@ -127,13 +127,13 @@ async def arab_toggle_func(_, message: Message):
         if is_arab:
             return await message.reply("Already enabled.")
         await enable_arab(chat_id)
-        await message.reply_text("Enabled Spam Detection.")
+        await message.reply_text("Enabled Arab Spam Detection.")
     elif status == "disable":
         is_arab = await is_arab_enabled(chat_id)
         if not is_arab:
             return await message.reply("Already disabled.")
         await disable_arab(chat_id)
-        await message.reply_text("Disabled Spam Detection.")
+        await message.reply_text("Disabled Arab Spam Detection.")
     else:
         await message.reply_text(
             "Unknown Suffix, Use /antispam [ENABLE|DISABLE]"
