@@ -77,14 +77,15 @@ async def message_watcher(_, message: Message):
     text = message.text or message.caption
     if not text:
         return
+    if user_id in SUDOERS or user_id in (await admins(chat_id)):
+        return
     is_arab = await is_arab_enabled(chat_id)
     if is_arab:
        check = ad.detect_alphabet("{}".format(text))
     if "ARABIC" in check:
-          if user_id not in SUDOERS or user_id not in (await admins(chat_id)):       
-               await message.delete()
-          except:
-           pass
+        await message.delete()
+    except:
+        pass
     try:
          resp = await api.spam_scan(text)
     except GenericApiError:
@@ -98,8 +99,6 @@ async def message_watcher(_, message: Message):
         return
     is_spm = await is_spam_enabled(chat_id)
     if not is_spm:
-        return
-    if user_id in SUDOERS or user_id in (await admins(chat_id)):
         return
     await delete_spam_notify(message, datas)
     
