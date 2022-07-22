@@ -199,7 +199,7 @@ async def disable_spam(chat_id: int):
 
 
 
-arabdb = db.arab
+arabdb = db.antiarab
 
 
 async def get_arab_chats() -> list:
