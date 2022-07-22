@@ -104,6 +104,10 @@ async def message_watcher(_, message: Message):
 @spr.on_message(
     (
         filters.document
+        | filters.photo
+        | filters.sticker
+        | filters.animation
+        | filters.video
         | filters.text
     )
 )
