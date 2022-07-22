@@ -176,7 +176,7 @@ async def nsfw_scan_command(_, message: Message):
 **Hentai:** {int(resp.hentai)} %
 **Sexy:** {int(resp.sexy)} %
 **Drawings:** {int(resp.drawings)} %
-**NSFW:** {int(resp.is_nsfw)}
+**NSFW:** {resp.is_nsfw}
 """
     )
 
