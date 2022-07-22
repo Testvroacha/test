@@ -4,9 +4,10 @@ from aiohttp import ClientSession
 from pyrogram import Client
 from Python_ARQ import ARQ
 from SafoneAPI import SafoneAPI
+from alphabet_detector import AlphabetDetector
 
 api = SafoneAPI()
-
+ad = AlphabetDetector()
 
 API_ID = 6
 API_HASH = "eb06d4abfb49dc3eeb1aeb98ae0f581e"
