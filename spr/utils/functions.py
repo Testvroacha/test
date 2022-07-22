@@ -7,7 +7,7 @@ from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
 from config import SPAM_LOG_CHANNEL
 from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
-                          is_spam_enabled, del_anti_func, set_anti_func, get_anti_func)
+                          is_spam_enabled)
 from pyrogram.errors import (ChatAdminRequired, ChatWriteForbidden,
                              UserAdminInvalid)
 from pyrogram.types import Message
