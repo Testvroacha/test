@@ -1,5 +1,6 @@
 import os
 from pyrogram import filters, enums
+from alphabet_detector import AlphabetDetector
 from pyrogram.types import Message
 from spr import SUDOERS, spr, api, arq
 from SafoneAPI import GenericApiError
@@ -9,6 +10,7 @@ from spr.utils.functions import (delete_nsfw_notify,
                                  delete_spam_notify, kick_user_notify, arab_delete)
 from spr.utils.misc import admins, get_file_id, get_file_unique_id
 
+ad = AlphabetDetector()
 
 @spr.on_message(
     (
@@ -76,6 +78,10 @@ async def message_watcher(_, message: Message):
     text = message.text or message.caption
     if not text:
         return
+    check = ad.detect_alphabet("{}".format(text))
+    if "ARABIC" in check:
+        try:
+           return await message.delete()
     try:
          resp = await api.spam_scan(text)
     except GenericApiError:
