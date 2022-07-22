@@ -111,7 +111,7 @@ async def message_watcher(_, message: Message):
         | filters.text
     )
 )
-async def arab_watcher(_, message: Message):
+async def message_watcher(_, message: Message):
     user_id = None
     chat_id = None
 
