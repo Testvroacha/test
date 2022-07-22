@@ -101,41 +101,4 @@ async def message_watcher(_, message: Message):
     if user_id in SUDOERS or user_id in (await admins(chat_id)):
         return
     await delete_spam_notify(message, datas)
-
-
-
-
-
-
-@spr.on_message(
-    (
-        filters.document
-        | filters.photo
-        | filters.sticker
-        | filters.animation
-        | filters.video
-        | filters.text
-    )
-)
-async def message_watcher(_, message: Message):
-    user_id = None
-    chat_id = None
-
-    if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-        chat_id = message.chat.id    
-    if message.from_user:
-        if message.from_user.id:
-            user_id = message.from_user.id
-    if not chat_id or not user_id:
-        return
-    text = message.text or message.caption
-    if not text:
-        return
-    check = ad.detect_alphabet("{}".format(text))
-    if "ARABIC" in check:
-        is_arab = await is_arab_enabled(chat_id)
-    if is_arab:
-          if user_id not in SUDOERS or user_id not in (await admins(chat_id)):       
-               await message.delete()
-      
     
