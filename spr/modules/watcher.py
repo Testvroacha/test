@@ -1,7 +1,7 @@
 import os
 from pyrogram import filters, enums
 from pyrogram.types import Message
-from spr import SUDOERS, spr, api
+from spr import SUDOERS, spr, api, arq
 from SafoneAPI import GenericApiError
 from asyncio.exceptions import TimeoutError
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat, is_nsfw_enabled, is_spam_enabled, disable_nsfw, disable_spam, enable_nsfw, enable_spam, del_anti_func, set_anti_func, get_anti_func
@@ -58,20 +58,19 @@ async def message_watcher(_, message: Message):
             await kick_user_notify(message)
         file = await spr.download_media(file_id)
         try:
-            results = await api.nsfw_scan(file=file)
+            resp = await arq.nsfw_scan(file=file)
         except Exception:
             try:
                 return os.remove(file)
             except Exception:
                 return
         os.remove(file)
-        if results.data:
-            resp = results.data
-            if resp.is_nsfw:
-              is_nfw = await is_nsfw_enabled(chat_id)
-              if is_nfw:
+        if resp.ok:
+            if resp.result.is_nsfw:
+                is_nfw = await is_nsfw_enabled(chat_id)
+                if is_nfw:
                     return await delete_nsfw_notify(
-                    message, resp
+                        message, resp.result
                     )
 
     text = message.text or message.caption
