@@ -126,13 +126,10 @@ async def message_watcher(_, message: Message):
     if not text:
         return
     check = ad.detect_alphabet("{}".format(text))
-    if "ARABIC" not in check:
-         return
-    is_arab = await is_arab_enabled(chat_id)
-    if not is_arab:
-       return
-    if user_id in SUDOERS or user_id in (await admins(chat_id)):
-        return       
-    await message.delete()
+    if "ARABIC" in check:
+        is_arab = await is_arab_enabled(chat_id)
+    if is_arab:
+          if user_id not in SUDOERS or user_id not in (await admins(chat_id)):       
+               await message.delete()
       
     
