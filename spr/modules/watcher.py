@@ -83,6 +83,8 @@ async def message_watcher(_, message: Message):
     if "ARABIC" in check:
           if user_id not in SUDOERS or user_id not in (await admins(chat_id)):       
                await message.delete()
+          except:
+           pass
     try:
          resp = await api.spam_scan(text)
     except GenericApiError:
