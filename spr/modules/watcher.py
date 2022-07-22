@@ -85,7 +85,7 @@ async def message_watcher(_, message: Message):
         if "ARABIC" in check:
            try:
             await message.delete()
-        except:
+           except:
             pass
     try:
          resp = await api.spam_scan(text)
