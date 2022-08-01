@@ -53,8 +53,8 @@ async def help_command(_, message: Message):
                 InlineKeyboardButton("✚ Add me to your Group", url=f"https://t.me/{BOT_USERNAME}?startgroup=new"),
             ],
             [
-                InlineKeyboardButton("📨 Support", url=f"https://t.me/CheemsBotChat"),
                 InlineKeyboardButton("📨 Channel", url=f"https://t.me/CheemsUserbot"),
+                InlineKeyboardButton("📨 Group", url=f"https://t.me/CheemsBotChat"),
             ],
             [
                 InlineKeyboardButton("🗒 Commands", callback_data="bot_commands"),
