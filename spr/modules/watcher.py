@@ -52,6 +52,9 @@ async def message_watcher(_, message: Message):
     file_id = get_file_id(message)
     file_unique_id = get_file_unique_id(message)
     if file_id and file_unique_id:
+        is_serve = await is_served_chat(chat_id)
+        if not is_serve:
+               await add_served_chat(chat_id)
         if user_id in SUDOERS or user_id in (await admins(chat_id)):
             return
         is_gbanned = await is_gbanned_user(user_id)                  
@@ -77,6 +80,9 @@ async def message_watcher(_, message: Message):
     text = message.text or message.caption
     if not text:
         return
+    is_serve = await is_served_chat(chat_id)
+        if not is_serve:
+               await add_served_chat(chat_id)
     if user_id in SUDOERS or user_id in (await admins(chat_id)):
         return
     check = ad.detect_alphabet("{}".format(text))
