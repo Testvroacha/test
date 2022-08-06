@@ -219,6 +219,39 @@ async def nsfw_scan_command(_, message: Message):
 """
     )
 
+
+@spr.on_message(filters.command("nsfwtestvid"), group=3)
+async def nsfw_scan_command(_, message: Message):
+    err = "Reply to an image/document/sticker/animation to scan it."
+    if not message.reply_to_message:
+        await message.reply_text(err)
+        return
+    reply = message.reply_to_message
+    if (
+        not reply.document
+        and not reply.photo
+        and not reply.sticker
+        and not reply.animation
+        and not reply.video
+    ):
+        await message.reply_text(err)
+        return
+    m = await message.reply_text("Scanning")
+    file_id = get_file_id(reply)
+    if not file_id:
+        return await m.edit("Something went wrong.")
+    file = await spr.download_media(file_id)
+    try:
+        results = n2.predict_video_frames(video_path=file)
+    except Exception as e:
+        return await m.edit(str(e))
+    remove(file)
+    await m.edit(
+        f"""
+**DETECTION:** {round(results)} %
+"""
+    )
+
 @spr.on_message(filters.command("spamscan"), group=3)
 async def scanNLP(_, message: Message):
     if not message.reply_to_message:
