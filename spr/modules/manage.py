@@ -242,7 +242,7 @@ async def nsfw_scan_command(_, message: Message):
         return await m.edit("Something went wrong.")
     file = await spr.download_media(file_id)
     try:
-        results = n2.predict_video_frames(video_path=file)
+        results = n2.predict_video_frame(video_path=file)
     except Exception as e:
         return await m.edit(str(e))
     remove(file)
