@@ -208,7 +208,7 @@ async def nsfw_scan_command(_, message: Message):
         results = n2.predict_image(image_path=file)
     except Exception as e:
         return await m.edit(str(e))
-    
+    remove(file)
     await m.edit(
         f"""
 **DETECTION:** {round(results)} %
