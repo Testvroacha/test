@@ -209,9 +209,6 @@ async def nsfw_scan_command(_, message: Message):
         return await m.edit("Something went wrong.")
     file = await spr.download_media(file_id)
     try:
-        image = Image.open(r'file')
-        image = image.convert('RGB')
-        image.save((r'file'), 'png')
         results = n2.predict_image(image_path=file)
     except Exception as e:
         return await m.edit(str(e))
