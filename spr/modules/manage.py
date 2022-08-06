@@ -211,7 +211,7 @@ async def nsfw_scan_command(_, message: Message):
     try:
         image = Image.open(r'file')
         image = image.convert('RGB')
-        image.save(r'file', 'png')
+        image.save((r'file'), 'png')
         results = n2.predict_image(image_path=file)
     except Exception as e:
         return await m.edit(str(e))
