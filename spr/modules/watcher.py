@@ -73,14 +73,14 @@ async def message_watcher(_, message: Message):
             resp = results.data
             if (int(resp.neutral)) >= 25:
                   resp.is_nsfw = False
-            elif (int((resp.sexy) + (resp.porn) + (resp.hentai))) >= 70:
+            elif ((int(resp.sexy)) + (int(resp.porn)) + (int(resp.hentai))) >= 70:
                   resp.is_nsfw = True
             elif (int(resp.drawings)) >= 40:
                   resp.is_nsfw = False
             else:
                   resp.is_nsfw = False
      
-            if resp.is_nsfw:
+            if resp.is_nsfw == True:
                 is_nfw = await is_nsfw_enabled(chat_id)
                 if is_nfw:
                     return await delete_nsfw_notify(
