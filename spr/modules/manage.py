@@ -211,7 +211,7 @@ async def nsfw_scan_command(_, message: Message):
     
     await m.edit(
         f"""
-**Neutral:** {results} %
+**DETECTION:** {int(results)} %
 """
     )
 
