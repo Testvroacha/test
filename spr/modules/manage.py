@@ -1,6 +1,10 @@
 from os import remove
 from re import compile, search
 from pyrogram import filters
+from PIL import Image
+import PIL
+import os
+import glob
 from pyrogram.types import Message
 import opennsfw2 as n2
 from spr import SUDOERS, spr, api
@@ -205,6 +209,9 @@ async def nsfw_scan_command(_, message: Message):
         return await m.edit("Something went wrong.")
     file = await spr.download_media(file_id)
     try:
+        image = Image.open('file')
+        image = image.convert('RGB')
+        image.save('file', 'png')
         results = n2.predict_image(image_path=file)
     except Exception as e:
         return await m.edit(str(e))
