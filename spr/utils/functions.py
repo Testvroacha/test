@@ -72,7 +72,7 @@ async def delete_get_info(message: Message):
 
 async def delete_nsfw_notify(
     message: Message,
-    result,   
+    resp,   
 ):
     info = await delete_get_info(message)
     if not info:
@@ -81,11 +81,11 @@ async def delete_nsfw_notify(
 🚨 **NSFW ALERT**  🚔
 {info}
 **Prediction:**
-    **Safe:** `{result.neutral} %`
-    **Porn:** `{result.porn} %`
-    **Adult:** `{result.sexy} %`
-    **Hentai:** `{result.hentai} %`
-    **Drawings:** `{result.drawings} %`
+    **Safe:** `{int(resp.neutral)} %`
+    **Porn:** `{int(resp.porn}) %`
+    **Adult:** `{int(resp.sexy}) %`
+    **Hentai:** `{int(resp.hentai}) %`
+    **Drawings:** `{int(resp.drawings}) %`
 """
     await spr.send_message(message.chat.id, text=msg)
     
