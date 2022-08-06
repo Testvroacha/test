@@ -183,7 +183,7 @@ async def nsfw_scan_command(_, message: Message):
     )
 
 
-@spr.on_message(filters.command("nsfwscan"), group=3)
+@spr.on_message(filters.command("nsfwtest"), group=3)
 async def nsfw_scan_command(_, message: Message):
     err = "Reply to an image/document/sticker/animation to scan it."
     if not message.reply_to_message:
