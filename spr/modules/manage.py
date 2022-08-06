@@ -2,6 +2,7 @@ from os import remove
 from re import compile, search
 from pyrogram import filters
 from pyrogram.types import Message
+import opennsfw2 as n2
 from spr import SUDOERS, spr, api
 from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
@@ -181,6 +182,38 @@ async def nsfw_scan_command(_, message: Message):
 """
     )
 
+
+@spr.on_message(filters.command("nsfwscan"), group=3)
+async def nsfw_scan_command(_, message: Message):
+    err = "Reply to an image/document/sticker/animation to scan it."
+    if not message.reply_to_message:
+        await message.reply_text(err)
+        return
+    reply = message.reply_to_message
+    if (
+        not reply.document
+        and not reply.photo
+        and not reply.sticker
+        and not reply.animation
+        and not reply.video
+    ):
+        await message.reply_text(err)
+        return
+    m = await message.reply_text("Scanning")
+    file_id = get_file_id(reply)
+    if not file_id:
+        return await m.edit("Something went wrong.")
+    file = await spr.download_media(file_id)
+    try:
+        results = await n2.predict_image(image_path=file)
+    except Exception as e:
+        return await m.edit(str(e))
+    
+    await m.edit(
+        f"""
+**Neutral:** {results} %
+"""
+    )
 
 @spr.on_message(filters.command("spamscan"), group=3)
 async def scanNLP(_, message: Message):
