@@ -246,9 +246,10 @@ async def nsfw_scan_command(_, message: Message):
     except Exception as e:
         return await m.edit(str(e))
     remove(file)
+    result = {round(min(results))}
     await m.edit(
         f"""
-**DETECTION:** {round(min(results))} %
+**DETECTION:** {result} %
 """
     )
 
