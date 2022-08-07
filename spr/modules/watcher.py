@@ -72,7 +72,7 @@ async def message_watcher(_, message: Message):
         os.remove(file)     
         hel = min(results)
         result = format(hel, '.0%')
-        if result > 45:
+        if result > 45%:
                 is_nfw = await is_nsfw_enabled(chat_id)
                 if is_nfw:
                     return await delete_nsfw_notify(
