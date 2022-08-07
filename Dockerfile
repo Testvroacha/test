@@ -8,4 +8,4 @@ COPY requirements.txt .
 RUN pip3 install --no-cache-dir -U -r requirements.txt
 COPY . .
 EXPOSE 8000
-RUN ["python3", "-m", "spr", "runserver", "0.0.0.0:8000"]
+CMD ["python3", "-m", "spr", "runserver", "0.0.0.0:8000"]
