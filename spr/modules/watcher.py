@@ -1,6 +1,7 @@
 import os
 from pyrogram import filters, enums
 from pyrogram.types import Message
+import opennsfw2 as n2
 from spr import SUDOERS, spr, api, arq, ad
 from SafoneAPI import GenericApiError
 from asyncio.exceptions import TimeoutError
@@ -62,29 +63,19 @@ async def message_watcher(_, message: Message):
             await kick_user_notify(message)
         file = await spr.download_media(file_id)
         try:
-            results = await api.nsfw_scan(file=file)
+            A, results = await n2.predit_video_frames(video_path=file, frame_interval=100000)
         except Exception:
             try:
                 return os.remove(file)
             except Exception:
                 return
-        os.remove(file)
-        if results.data:
-            resp = results.data
-            if (int(resp.neutral)) >= 25:
-                  resp.is_nsfw = False
-            elif ((int(resp.sexy)) + (int(resp.porn)) + (int(resp.hentai))) >= 70:
-                  resp.is_nsfw = True
-            elif (int(resp.drawings)) >= 40:
-                  resp.is_nsfw = False
-            else:
-                  resp.is_nsfw = False
-     
-            if resp.is_nsfw == True:
+        os.remove(file)     
+        result = {round(min(results))}
+        if result == 1:
                 is_nfw = await is_nsfw_enabled(chat_id)
                 if is_nfw:
                     return await delete_nsfw_notify(
-                        message, resp
+                        message, result
                     )
 
     text = message.text or message.caption
