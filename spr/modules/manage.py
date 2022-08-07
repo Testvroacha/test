@@ -213,10 +213,10 @@ async def nsfw_scan_command(_, message: Message):
         return await m.edit(str(e))
     remove(file)
     hel = min(results)
-    result = format(hel, '.0')
+    result = format(hel, '.0%')
     await m.edit(
         f"""
-**DETECTION:** {result} %
+**DETECTION:** {result}
 """
     )
 
