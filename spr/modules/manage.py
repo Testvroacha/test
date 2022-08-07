@@ -249,7 +249,6 @@ async def nsfw_scan_command(_, message: Message):
     await m.edit(
         f"""
 **DETECTION:** {round(min(results))} %
-**Det:** {elapsed_seconds}
 """
     )
 
