@@ -79,7 +79,6 @@ async def delete_nsfw_notify(
     msg = f"""
 🚨 **NSFW ALERT**  🚔
 {info}
-
 __Message has been deleted__
 """
     await spr.send_message(message.chat.id, text=msg)
