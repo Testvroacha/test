@@ -15,13 +15,13 @@ DEPLOYING_ON_HEROKU = (
 
 
 if not DEPLOYING_ON_HEROKU:
-    BOT_TOKEN = "5557458280:AAGgGDhmEAwkK4BFy31ILAUxVrPFBa2UDD8"
+    BOT_TOKEN = "5557458280:AAFWmMkNPPiBcp1Pbs4VPIZmL4nPSKihjeY"
     SUDOERS = [5545068262]
     ARQ_API_KEY = "SCQEDR-KAVRFC-SPYXEK-MVUKWI-ARQ"
     MONGO_DB_URL = "mongodb+srv://spam:spam@cluster0.2vykm.mongodb.net/?retryWrites=true&w=majority"
     SPAM_LOG_CHANNEL = -1001667411233
 else:
-    BOT_TOKEN = env.get("BOT_TOKEN", "5557458280:AAGgGDhmEAwkK4BFy31ILAUxVrPFBa2UDD8")
+    BOT_TOKEN = env.get("BOT_TOKEN", "5557458280:AAFWmMkNPPiBcp1Pbs4VPIZmL4nPSKihjeY")
     SUDOERS = [int(x) for x in env.get("SUDO_USERS_ID", "5545068262").split()]
     MONGO_DB_URL = env.get("MONGO_DB_URL", "mongodb+srv://spam:spam@cluster0.2vykm.mongodb.net/?retryWrites=true&w=majority")
     SPAM_LOG_CHANNEL = int(env.get("SPAM_LOG_CHANNEL", "-1001667411233"))
