@@ -70,12 +70,13 @@ async def message_watcher(_, message: Message):
             except Exception:
                 return
         os.remove(file)     
-        result = round(min(results))
-        if result == 1:
+        hel = min(results)
+        result = format(hel, '.0%')
+        if result > 45:
                 is_nfw = await is_nsfw_enabled(chat_id)
                 if is_nfw:
                     return await delete_nsfw_notify(
-                        message
+                        message, result
                     )
 
     text = message.text or message.caption
