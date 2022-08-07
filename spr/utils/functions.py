@@ -72,11 +72,13 @@ async def delete_get_info(message: Message):
 
 async def delete_nsfw_notify(
     message: Message,  
-    result, 
+    results, 
 ):
     info = await delete_get_info(message)
     if not info:
         return
+    hel = min(results)
+    result = format(hel, '.0%')
     msg = f"""
 🚨 **NSFW ALERT**  🚔
 {info}
