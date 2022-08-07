@@ -63,19 +63,19 @@ async def message_watcher(_, message: Message):
             await kick_user_notify(message)
         file = await spr.download_media(file_id)
         try:
-            A, results = await n2.predit_video_frames(video_path=file, frame_interval=100000)
+            A, results = n2.predict_video_frames(video_path=file, frame_interval=100000)            
         except Exception:
             try:
                 return os.remove(file)
             except Exception:
                 return
         os.remove(file)     
-        result = {round(min(results))}
+        result = round(min(results))
         if result == 1:
                 is_nfw = await is_nsfw_enabled(chat_id)
                 if is_nfw:
                     return await delete_nsfw_notify(
-                        message, result
+                        message
                     )
 
     text = message.text or message.caption
