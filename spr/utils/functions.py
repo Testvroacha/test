@@ -71,8 +71,7 @@ async def delete_get_info(message: Message):
 
 
 async def delete_nsfw_notify(
-    message: Message,
-    result,   
+    message: Message,   
 ):
     info = await delete_get_info(message)
     if not info:
