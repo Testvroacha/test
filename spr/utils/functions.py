@@ -9,7 +9,7 @@ from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
                           enable_spam, is_nsfw_enabled,
                           is_spam_enabled)
 from pyrogram.errors import (ChatAdminRequired, ChatWriteForbidden,
-                             UserAdminInvalid)
+                             UserAdminInvalid, MessageDeleteForbidden)
 from pyrogram.types import Message
 from spr import spr, api
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
@@ -59,7 +59,7 @@ async def get_user_info(message):
 async def delete_get_info(message: Message):
     try:
         await message.delete()
-    except (ChatAdminRequired, UserAdminInvalid):
+    except (ChatAdminRequired, UserAdminInvalid, MessageDeleteForbidden):
         try:
             return await message.reply_text(
                 "I don't have enough permission to delete "
