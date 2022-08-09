@@ -9,6 +9,6 @@ python-arq
 alphabet_detector
 opennsfw2
 tensorflow-cpu
-typing>=3.6
+typing
 tensorboard
 tensorflow-estimator
