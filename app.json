@@ -15,10 +15,5 @@
     "Spam Protection Bot"
     ],
     "stack": "container",
-    "env": {
-        "BOT_TOKEN": {
-            "description": "Obtain a Telegram bot oken by contacting @BotFather",
-            "required": true
-        }
     }
 }
