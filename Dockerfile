@@ -1,4 +1,4 @@
-FROM tensorflow/serving:latest-devel-gpu
+FROM BVLC/caffe:gpu
 WORKDIR /app
 RUN chmod 777 /app
 RUN apt-get update && apt-get install libgl1 -y
