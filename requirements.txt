@@ -8,7 +8,7 @@ safoneapi
 python-arq
 alphabet_detector
 opennsfw2
-tensorflow-cpu
+tensorflow-cpu==2.9.0
 typing
-tensorboard
-tensorflow-estimator
+tensorboard==2.9.0
+tensorflow-estimator==2.9.0
