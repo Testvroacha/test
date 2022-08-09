@@ -1,4 +1,4 @@
-FROM BVLC/caffe:gpu
+FROM bvlc/caffe:gpu
 WORKDIR /app
 RUN chmod 777 /app
 RUN apt-get update && apt-get install libgl1 -y
