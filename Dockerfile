@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:latest-gpu
+FROM intel/intel-optimized-tensorflow:latest
 WORKDIR /app
 RUN chmod 777 /app
 RUN apt-get update && apt-get install libgl1 -y
