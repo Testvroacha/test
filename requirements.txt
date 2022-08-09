@@ -7,5 +7,4 @@ pymongo[srv]
 safoneapi
 python-arq
 alphabet_detector
-opennsfw2
 tensorflow-cpu
