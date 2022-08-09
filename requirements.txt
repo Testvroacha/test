@@ -8,4 +8,4 @@ safoneapi
 python-arq
 alphabet_detector
 opennsfw2
-
+tensorflow==2.2.0
