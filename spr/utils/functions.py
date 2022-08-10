@@ -4,24 +4,13 @@ from time import ctime
 from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
-from config import SPAM_LOG_CHANNEL
-from spr.utils.mongodb import (disable_nsfw, disable_spam, enable_nsfw,
-                          enable_spam, is_nsfw_enabled,
-                          is_spam_enabled)
+from spr.utils.mongodb import (disable_nsfw, enable_nsfw, is_nsfw_enabled)
 from pyrogram.errors import (ChatAdminRequired, ChatWriteForbidden,
                              UserAdminInvalid, MessageDeleteForbidden)
 from pyrogram.types import Message
-from spr import spr, api
+from spr import spr
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
 
-
-class REGEXES:
-    arab = compile('[\u0627-\u064a]')
-    chinese = compile('[\u4e00-\u9fff]')
-    japanese = compile('[(\u30A0-\u30FF|\u3040-\u309Fー|\u4E00-\u9FFF)]')
-    sinhala = compile('[\u0D80-\u0DFF]')
-    tamil = compile('[\u0B02-\u0DFF]')
-    cyrillic = compile('[\u0400-\u04FF]')
 
 
 def get_arg(message):
@@ -32,15 +21,6 @@ def get_arg(message):
         return ""
     return " ".join(split[1:])
 
-
-FORM_AND_REGEXES = {
-    "ar": [REGEXES.arab, "arabic"],
-    "zh": [REGEXES.chinese, "chinese"],
-    "jp": [REGEXES.japanese, "japanese"],
-    "rs": [REGEXES.cyrillic, "russian"],
-    "si": [REGEXES.sinhala, "sinhala"],
-    "ta": [REGEXES.tamil, "Tamil"],
-}
 
 async def get_user_info(message):
     user = message.from_user
@@ -89,47 +69,6 @@ __Message has been deleted__
     await spr.send_message(message.chat.id, text=msg)
     
 
-
-async def delete_spam_notify(
-    message: Message,
-    datas,
-):
-    info = await delete_get_info(message)
-    if not info:
-        return
-    msg = f"""
-🚨 **SPAM ALERT**  🚔
-{info}
-**Is Spam:** {datas.is_spam}
-**Ham:** {datas.ham}
-**Spam:** {datas.spam}
-**Spam Probability:** {datas.spam_probability} %
-
-__Message has been deleted__
-"""
-    content = message.text or message.caption
-    content = content[:400] + "..."
-    report = f"""
-**SPAM DETECTION**
-{info}
-**Content:**
-{content}
-    """
-    m = await spr.send_message(
-        SPAM_LOG_CHANNEL,
-        report,
-    )
-    buttons = [
-            [
-                InlineKeyboardButton("View Message", url=(m.link)),
-            ],
-            ]
-    reply_markup = InlineKeyboardMarkup(buttons)
-    await spr.send_message(
-        message.chat.id, text=msg, reply_markup=reply_markup
-    )
-
-
 async def kick_user_notify(message: Message):
     try:
         await spr.ban_chat_member(
@@ -151,22 +90,3 @@ async def kick_user_notify(message: Message):
 __User has been banned__
 """
     await spr.send_message(message.chat.id, msg)
-
-
-async def arab_delete(message, mode):
-    # Users list
-    users = message.new_chat_members
-    chat_id = message.chat.id
-    # Obtaining user who sent the message
-    tuser = message.from_user
-    try:
-        mdnrgx = FORM_AND_REGEXES[mode]           
-        if message.text:
-                  if not tuser:
-                      return
-                      if search(mdnrgx[0], message.text):
-                          await message.delete()
-    except:
-        pass
-
-
