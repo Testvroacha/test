@@ -16,7 +16,6 @@ from spr.utils.misc import admins, get_file_id, get_file_unique_id
         | filters.sticker
         | filters.animation
         | filters.video
-        | filters.text
     )
 )
 async def message_watcher(_, message: Message):
