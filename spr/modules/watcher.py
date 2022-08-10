@@ -2,12 +2,9 @@ import os
 from pyrogram import filters, enums
 from pyrogram.types import Message
 import opennsfw2 as n2
-from spr import SUDOERS, spr, api, arq, ad
-from SafoneAPI import GenericApiError
-from asyncio.exceptions import TimeoutError
-from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat, is_nsfw_enabled, is_spam_enabled, disable_nsfw, disable_spam, enable_nsfw, enable_spam, enable_arab, disable_arab, is_arab_enabled
-from spr.utils.functions import (delete_nsfw_notify,
-                                 delete_spam_notify, kick_user_notify, arab_delete)
+from spr import SUDOERS, spr
+from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat, is_nsfw_enabled, enable_nsfw, disable_nsfw
+from spr.utils.functions import (delete_nsfw_notify, kick_user_notify)
 from spr.utils.misc import admins, get_file_id, get_file_unique_id
 
 
@@ -19,7 +16,6 @@ from spr.utils.misc import admins, get_file_id, get_file_unique_id
         | filters.sticker
         | filters.animation
         | filters.video
-        | filters.text
     )
 )
 async def message_watcher(_, message: Message):
@@ -32,7 +28,6 @@ async def message_watcher(_, message: Message):
         if not is_serve:
                await add_served_chat(chat_id)
                await enable_nsfw(chat_id)
-               await enable_spam(chat_id)
         if chat_id in await blacklisted_chats():
                  await spr.leave_chat(chat_id)
 
@@ -77,36 +72,4 @@ async def message_watcher(_, message: Message):
                     return await delete_nsfw_notify(
                         message, results
                     )
-
-    text = message.text or message.caption
-    if not text:
-        return
-    is_serve = await is_served_chat(chat_id)
-    if not is_serve:
-        await add_served_chat(chat_id)
-    if user_id in SUDOERS or user_id in (await admins(chat_id)):
-        return
-    check = ad.detect_alphabet("{}".format(text))
-    is_arab = await is_arab_enabled(chat_id)
-    if is_arab:
-        if "ARABIC" in check:
-           try:
-            await message.delete()
-           except:
-            pass
-    try:
-         resp = await api.spam_scan(text)
-    except GenericApiError:
-        return
-    except TimeoutError:
-        return
-    if not resp.data:
-        return
-    datas = resp.data
-    if not datas.is_spam:
-        return
-    is_spm = await is_spam_enabled(chat_id)
-    if not is_spm:
-        return
-    await delete_spam_notify(message, datas)
     
