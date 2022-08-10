@@ -6,19 +6,13 @@ from spr import SUDOERS, spr
 from spr.utils.mongodb import (disable_nsfw, enable_nsfw, is_nsfw_enabled)
 from spr.utils.misc import admins, get_file_id
 
-__MODULE__ = "Manage"
-__HELP__ = """
-/antinsfw [ENABLE|DISABLE] - Enable or disable NSFW Detection.
-/nsfwscan - Classify a media.
-"""
-
 @spr.on_message(
     filters.command("antinsfw") & ~filters.private, group=3
 )
 async def nsfw_toggle_func(_, message: Message):
     if len(message.command) != 2:
         return await message.reply_text(
-            "Usage: /antinsfw [ENABLE|DISABLE]"
+            "Usage: /antinsfw [on|off]"
         )
     if message.from_user:
         user = message.from_user
@@ -32,13 +26,13 @@ async def nsfw_toggle_func(_, message: Message):
     status = message.text.split(None, 1)[1].strip()
     status = status.lower()
     chat_id = message.chat.id
-    if status == "enable":
+    if status == "on":
         is_nsfw = await is_nsfw_enabled(chat_id)
         if is_nsfw:
             return await message.reply("Already enabled.")
         await enable_nsfw(chat_id)
         await message.reply_text("Enabled NSFW Detection.")
-    elif status == "disable":
+    elif status == "off":
         is_nsfw = await is_nsfw_enabled(chat_id)
         if not is_nsfw:
             return await message.reply("Already disabled.")
@@ -46,7 +40,7 @@ async def nsfw_toggle_func(_, message: Message):
         await message.reply_text("Disabled NSFW Detection.")
     else:
         await message.reply_text(
-            "Unknown Suffix, Use /antinsfw [ENABLE|DISABLE]"
+            "Unknown Suffix, Use /antinsfw [on|off]"
         )
 
 @spr.on_message(filters.command("nsfwscan"), group=3)
