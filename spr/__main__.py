@@ -58,7 +58,7 @@ async def help_command(_, message: Message):
                 InlineKeyboardButton("📨 Group", url=f"https://t.me/CheemsBotChat"),
             ],
             [
-                InlineKeyboardButton("🗒 Commands", callback_data="help_callback hb1"),
+                InlineKeyboardButton("🗒 Commands", callback_data="help_callback"),
             ]
             ]
     reply_markup = InlineKeyboardMarkup(buttons)
@@ -99,9 +99,9 @@ async def helper_cb(_, CallbackQuery):
         await CallbackQuery.answer()
     except:
         pass
-    if cb == "hb1":
+    if cb == "help_callback":
         await CallbackQuery.edit_message_text(
-            helpers.HELP_1, reply_markup=keyboard
+            HELP_1, reply_markup=keyboard
         )
 
 
