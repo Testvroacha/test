@@ -92,7 +92,6 @@ def help_back_markup(_):
 
 @spr.on_callback_query(filters.regex("help_callback"))
 async def helper_cb(_, CallbackQuery):
-    callback_data = CallbackQuery.data.strip()
     keyboard = help_back_markup(_)
     await CallbackQuery.edit_message_text(
             HELP_1, reply_markup=keyboard
