@@ -91,7 +91,7 @@ def help_back_markup(_):
     return upl
 
 @spr.on_callback_query(filters.regex("help_callback"))
-async def helper_cb(client, CallbackQuery, _):
+async def helper_cb(_, CallbackQuery):
     callback_data = CallbackQuery.data.strip()
     cb = callback_data.split(None, 1)[1]
     keyboard = help_back_markup(_)
