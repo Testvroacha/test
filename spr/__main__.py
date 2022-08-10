@@ -37,6 +37,7 @@ async def main():
     await session.close()
     await spr.stop()
 
+HELP_1 = """he"""
 
 @spr.on_message(filters.command(["help", "start"]), group=2)
 async def help_command(_, message: Message):
@@ -57,7 +58,7 @@ async def help_command(_, message: Message):
                 InlineKeyboardButton("📨 Group", url=f"https://t.me/CheemsBotChat"),
             ],
             [
-                InlineKeyboardButton("🗒 Commands", callback_data="bot_commands"),
+                InlineKeyboardButton("🗒 Commands", callback_data="help_callback hb1"),
             ]
             ]
     reply_markup = InlineKeyboardMarkup(buttons)
@@ -68,6 +69,40 @@ async def help_command(_, message: Message):
         + " Choose An Option From Below.",
         reply_markup=reply_markup,
     )
+
+@spr.on_callback_query(filters.regex("close"))
+async def reinfo(_, query: CallbackQuery):
+    try:
+        await query.message.delete()
+        await query.message.reply_to_message.delete()
+    except Exception:
+        pass
+
+def help_back_markup(_):
+    upl = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    text=_["Close"], callback_data=f"close"
+                ),
+            ]
+        ]
+    )
+    return upl
+
+@spr.on_callback_query(filters.regex("help_callback"))
+async def helper_cb(client, CallbackQuery, _):
+    callback_data = CallbackQuery.data.strip()
+    cb = callback_data.split(None, 1)[1]
+    keyboard = help_back_markup(_)
+    try:
+        await CallbackQuery.answer()
+    except:
+        pass
+    if cb == "hb1":
+        await CallbackQuery.edit_message_text(
+            helpers.HELP_1, reply_markup=keyboard
+        )
 
 
 @spr.on_callback_query(filters.regex("bot_commands"))
