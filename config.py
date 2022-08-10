@@ -15,7 +15,7 @@ DEPLOYING_ON_HEROKU = (
 
 
 if not DEPLOYING_ON_HEROKU:
-    BOT_TOKEN = "5557458280:AAFWmMkNPPiBcp1Pbs4VPIZmL4nPSKihjeY"
+    BOT_TOKEN = "5557458280:AAFkAxIVVdew5IkXqRJ1VXn3QVkGZyRbw_o"
     SUDOERS = [5545068262]
     ARQ_API_KEY = "SCQEDR-KAVRFC-SPYXEK-MVUKWI-ARQ"
     MONGO_DB_URL = "mongodb+srv://spam:spam@cluster0.2vykm.mongodb.net/?retryWrites=true&w=majority"
