@@ -4,8 +4,5 @@ pykeyboard
 python-dotenv
 motor
 pymongo[srv]
-safoneapi
-python-arq
-alphabet_detector
 tensorflow-cpu
 opennsfw2
