@@ -11,17 +11,6 @@ from pyrogram.types import Message
 from spr import spr
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
 
-
-
-def get_arg(message):
-    msg = message.text
-    msg = msg.replace(" ", "", 1) if msg[1] == " " else msg
-    split = msg[1:].replace("\n", " \n").split(" ")
-    if " ".join(split[1:]).strip() == "":
-        return ""
-    return " ".join(split[1:])
-
-
 async def get_user_info(message):
     user = message.from_user
     user_ = f"{('@' + user.username) if user.username else user.mention} [`{user.id}`]"
