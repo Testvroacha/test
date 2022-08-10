@@ -6,17 +6,6 @@ from pyrogram.types import (InlineQuery, InlineQueryResultArticle,
 from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
 from spr import SUDOERS, spr
 
-__MODULE__ = "Info"
-__HELP__ = """
-**Get Info About A Chat Or User**
-
-/info [CHAT_ID/Username|USER_ID/Username]
-
-or you can use inline mode >>
-@NoNsfwRobot [CHAT_ID/Username|USER_ID/Username]
-"""
-
-
 async def get_user_info(user):
     try:
         user = await spr.get_users(user)
