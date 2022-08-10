@@ -37,7 +37,17 @@ async def main():
     await session.close()
     await spr.stop()
 
-HELP_1 = """he"""
+HELP_1 = """
+**Here is the Commands:**
+
+/antinsfw [on|off] - on or off NSFW Detection.
+/nsfwscan - Classify a media.
+
+**Get Info About A Chat Or User**
+/info [CHAT_ID/Username|USER_ID/Username]
+or you can use inline mode >>
+@NoNsfwRobot [CHAT_ID/Username|USER_ID/Username]
+"""
 
 @spr.on_message(filters.command(["help", "start"]), group=2)
 async def help_command(_, message: Message):
