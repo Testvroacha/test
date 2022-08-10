@@ -98,20 +98,6 @@ async def helper_cb(_, CallbackQuery):
         )
 
 
-@spr.on_callback_query(filters.regex("bot_commands"))
-async def commands_callbacc(_, cq: CallbackQuery):
-    text, keyboard = await help_parser(cq.from_user.mention)
-    await asyncio.gather(
-        cq.answer(),
-        cq.message.delete(),
-        spr.send_message(
-            cq.message.chat.id,
-            text=text,
-            reply_markup=keyboard,
-        ),
-    )
-
-
 async def help_parser(name, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(
@@ -123,87 +109,6 @@ async def help_parser(name, keyboard=None):
         + "machine learning. Choose an option from below.",
         keyboard,
     )
-
-
-@spr.on_callback_query(filters.regex(r"help_(.*?)"))
-async def help_button(client, query: CallbackQuery):
-    mod_match = re.match(r"help_module\((.+?)\)", query.data)
-    prev_match = re.match(r"help_prev\((.+?)\)", query.data)
-    next_match = re.match(r"help_next\((.+?)\)", query.data)
-    back_match = re.match(r"help_back", query.data)
-    create_match = re.match(r"help_create", query.data)
-    u = query.from_user.mention
-    top_text = (
-        f"Hello {u}, I'm NoNsfwRobot, I can protect "
-        + "your group from NSFW media using "
-        + "machine learning. Choose an option from below."
-    )
-    if mod_match:
-        module = mod_match.group(1)
-        text = (
-            "{} **{}**:\n".format(
-                "Here is the help for", HELPABLE[module].__MODULE__
-            )
-            + HELPABLE[module].__HELP__
-        )
-
-        await query.message.edit(
-            text=text,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            "back", callback_data="help_back"
-                        )
-                    ]
-                ]
-            ),
-            disable_web_page_preview=True,
-        )
-
-    elif prev_match:
-        curr_page = int(prev_match.group(1))
-        await query.message.edit(
-            text=top_text,
-            reply_markup=InlineKeyboardMarkup(
-                paginate_modules(curr_page - 1, HELPABLE, "help")
-            ),
-            disable_web_page_preview=True,
-        )
-
-    elif next_match:
-        next_page = int(next_match.group(1))
-        await query.message.edit(
-            text=top_text,
-            reply_markup=InlineKeyboardMarkup(
-                paginate_modules(next_page + 1, HELPABLE, "help")
-            ),
-            disable_web_page_preview=True,
-        )
-
-    elif back_match:
-        await query.message.edit(
-            text=top_text,
-            reply_markup=InlineKeyboardMarkup(
-                paginate_modules(0, HELPABLE, "help")
-            ),
-            disable_web_page_preview=True,
-        )
-
-    elif create_match:
-        text, keyboard = await help_parser(query)
-        await query.message.edit(
-            text=text,
-            reply_markup=keyboard,
-            disable_web_page_preview=True,
-        )
-
-    return await client.answer_callback_query(query.id)
-
-
-@spr.on_message(filters.command("runs"), group=3)
-async def runs_func(_, message: Message):
-    await message.reply("What am i? Rose?")
 
 
 if __name__ == "__main__":
