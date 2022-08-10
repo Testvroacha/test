@@ -66,7 +66,8 @@ async def help_command(_, message: Message):
     await message.reply_photo(
         "https://telegra.ph//file/b2e55cb639b2ffe3b990c.jpg",
         caption=f"Hi {mention}, I'm NoNsfwRobot,"
-        + " Choose An Option From Below.",
+        + "I Can Protect your group from NSFW media using "
+        + "machine learning. Choose an option from below.",
         reply_markup=reply_markup,
     )
 
@@ -96,20 +97,6 @@ async def helper_cb(_, CallbackQuery):
     await CallbackQuery.edit_message_text(
             HELP_1, reply_markup=keyboard
         )
-
-
-async def help_parser(name, keyboard=None):
-    if not keyboard:
-        keyboard = InlineKeyboardMarkup(
-            paginate_modules(0, HELPABLE, "help")
-        )
-    return (
-        f"Hello {name}, I'm NoNsfwRobot, I can protect "
-        + "your group from NSFW media using "
-        + "machine learning. Choose an option from below.",
-        keyboard,
-    )
-
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
