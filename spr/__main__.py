@@ -75,7 +75,7 @@ async def help_command(_, message: Message):
     mention = message.from_user.mention
     await message.reply_photo(
         "https://telegra.ph//file/2eb040289691e63357fa3.jpg",
-        caption=f"Hi {mention}, I'm NoNsfwRobot,"
+        caption=f"Hi {mention}, I'm NoNsfwRobot, "
         + "I Can Protect your group from NSFW media using "
         + "machine learning. Choose an option from below.",
         reply_markup=reply_markup,
