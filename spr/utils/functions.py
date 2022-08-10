@@ -1,5 +1,4 @@
 
-from re import compile, search
 from time import ctime
 from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
