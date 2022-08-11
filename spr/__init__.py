@@ -1,6 +1,4 @@
 from os.path import exists
-
-from aiohttp import ClientSession
 from pyrogram import Client
 
 API_ID = 6
@@ -10,8 +8,6 @@ if exists("config.py"):
     from config import *
 else:
     from sample_config import *
-
-session = ClientSession()
 
 spr = Client(
     name="spr",
