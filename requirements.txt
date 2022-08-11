@@ -6,4 +6,3 @@ motor
 pymongo[srv]
 tensorflow-cpu
 opennsfw2
-aiohttp
