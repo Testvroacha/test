@@ -4,4 +4,5 @@ pykeyboard
 python-dotenv
 motor
 pymongo[srv]
+tensorflow-cpu
 opennsfw2
