@@ -6,7 +6,7 @@ from pyrogram import filters, idle, enums
 from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
-from spr import BOT_USERNAME, session, spr
+from spr import BOT_USERNAME, spr
 from spr.modules import MODULES
 from spr.utils.misc import paginate_modules
 
@@ -34,8 +34,6 @@ async def main():
     print("STARTED !")
     loop = asyncio.get_running_loop()
     await idle()
-    await session.close()
-    await spr.stop()
 
 HELP_1 = """
 **Here is the Commands:**
