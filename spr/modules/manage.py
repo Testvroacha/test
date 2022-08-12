@@ -69,7 +69,7 @@ async def nsfw_scan_command(_, message: Message):
     except Exception as e:
         return await m.edit(str(e))
     remove(file)
-    hel = max(results)
+    hel = min(results)
     result = format(hel, '.0%')
     await m.edit(
         f"""
