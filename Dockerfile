@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:latest-gpu
+FROM python:3.9.5-buster
 WORKDIR /app
 RUN chmod 777 /app
 RUN apt-get update && apt-get install libgl1 -y
