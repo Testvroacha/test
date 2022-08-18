@@ -5,4 +5,5 @@ python-dotenv
 motor
 pymongo[srv]
 tensorflow-cpu
+tensorflow-gpu
 opennsfw2
