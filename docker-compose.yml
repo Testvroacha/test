@@ -1,0 +1,12 @@
+version: "1.0"
+services:
+  worker:
+    build: .
+    environment:
+      API_ID: $API_ID
+      API_HASH: $API_HASH
+      BOT_TOKEN: $BOT_TOKEN
+      SUDOERS: $SUDOERS
+      MONGO_DB_URL: $MONGO_DB_URL
+      
+      
