@@ -39,6 +39,7 @@ HELP_1 = """
 **Here is the Commands:**
 
 /antinsfw [on|off] - on or off NSFW Detection.
+/admindelete [on|off] - if on deletes messages of admins which contain NSFW content default is set to off
 /nsfwscan - Classify a media.
 
 **Get Info About A Chat Or User**
@@ -62,8 +63,7 @@ async def help_command(_, message: Message):
                 InlineKeyboardButton("✚ Add me to your Group", url=f"https://t.me/{BOT_USERNAME}?startgroup=new"),
             ],
             [
-                InlineKeyboardButton("📨 Channel", url=f"https://t.me/CheemsUserbot"),
-                InlineKeyboardButton("📨 Group", url=f"https://t.me/CheemsBotChat"),
+                InlineKeyboardButton("📨 Support", url=f"https://t.me/CheemsBotChat"),
             ],
             [
                 InlineKeyboardButton("🗒 Commands", callback_data="help_callback"),
