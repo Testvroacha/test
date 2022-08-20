@@ -163,3 +163,37 @@ async def disable_nsfw(chat_id: int):
         return
     return await porndb.delete_one({"chat_id": chat_id})
 
+
+
+admindb = db.admin
+
+
+async def get_admin_chats() -> list:
+    chats = admindb.find({"chat_id": {"$lt": 0}})
+    if not chats:
+        return []
+    chats_list = []
+    for chat in await chats.to_list(length=1000000000):
+        chats_list.append(chat)
+    return chats_list
+
+
+async def is_admin_chat(chat_id: int) -> bool:
+    chat = await admindb.find_one({"chat_id": chat_id})
+    if not chat:
+        return False
+    return True
+
+
+async def enable_admin(chat_id: int):
+    is_admin = await is_admin_chat(chat_id)
+    if is_admin:
+        return
+    return await admindb.insert_one({"chat_id": chat_id})
+
+
+async def disable_admin(chat_id: int):
+    is_admin = await is_admin_chat(chat_id)
+    if not is_admin:
+        return
+    return await admindb.delete_one({"chat_id": chat_id})
