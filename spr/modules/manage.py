@@ -3,7 +3,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 import opennsfw2 as n2
 from spr import SUDOERS, spr
-from spr.utils.mongodb import (disable_nsfw, enable_nsfw, is_nsfw_enabled)
+from spr.utils.mongodb import (disable_nsfw, enable_nsfw, is_nsfw_enabled, enable_admin, disable_admin, is_admin_chat)
 from spr.utils.misc import admins, get_file_id
 
 @spr.on_message(
@@ -43,6 +43,43 @@ async def nsfw_toggle_func(_, message: Message):
             "Unknown Suffix, Use /antinsfw [on|off]"
         )
 
+@spr.on_message(
+    filters.command("admindelete") & ~filters.private, group=3
+)
+async def admin_toggle_func(_, message: Message):
+    if len(message.command) != 2:
+        return await message.reply_text(
+            "Usage: /admindelete [on|off]"
+        )
+    if message.from_user:
+        user = message.from_user
+        chat_id = message.chat.id
+        if user.id not in SUDOERS and user.id not in (
+            await admins(chat_id)
+        ):
+            return await message.reply_text(
+                "You don't have enough permissions"
+            )
+    status = message.text.split(None, 1)[1].strip()
+    status = status.lower()
+    chat_id = message.chat.id
+    if status == "on":
+        is_nsfw = await is_admin_chat(chat_id)
+        if is_nsfw:
+            return await message.reply("Already enabled.")
+        await enable_admin(chat_id)
+        await message.reply_text("Enabled. Now I will also delete messages of admins which contains NSFW content")
+    elif status == "off":
+        is_nsfw = await is_admin_chat(chat_id)
+        if not is_nsfw:
+            return await message.reply("Already disabled.")
+        await disable_admin(chat_id)
+        await message.reply_text("Disabled. Now I will not delete messages of admins which contains NSFW content")
+    else:
+        await message.reply_text(
+            "Unknown Suffix, Use /admindelete [on|off]"
+        )
+
 @spr.on_message(filters.command("nsfwscan"), group=3)
 async def nsfw_scan_command(_, message: Message):
     err = "Reply to an image/document/sticker/animation to scan it."
@@ -69,10 +106,11 @@ async def nsfw_scan_command(_, message: Message):
     except Exception as e:
         return await m.edit(str(e))
     remove(file)
-    hel = min(results)
+    hel = max(results)
     result = format(hel, '.0%')
+    detected = result.replace("%", "")
     await m.edit(
         f"""
-**DETECTION:** {result}
+**DETECTION:** {detected}%
 """
     )
