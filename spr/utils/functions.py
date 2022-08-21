@@ -8,17 +8,20 @@ from pyrogram.errors import (ChatAdminRequired, ChatWriteForbidden,
                              UserAdminInvalid, MessageDeleteForbidden)
 from pyrogram.types import Message
 from spr import spr
-from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat
+from spr.utils.mongodb import get_served_users, is_served_user, add_served_user, get_served_chats, add_served_chat, remove_served_chat, is_served_chat, add_gban_user, is_gbanned_user, remove_gban_user, black_chat, blacklisted_chats, white_chat, is_black_chat, get_nsfw_count
 
 async def get_user_info(message):
     user = message.from_user
     user_ = f"{('@' + user.username) if user.username else user.mention} [`{user.id}`]"
+    nsfw_count = await get_nsfw_count(user.id)
     is_gbanned = await is_gbanned_user(user.id)
     reason = None
     data = f"""
 **User:**
     **Username:** {user_}
-    **Spammer:** {is_gbanned}
+    **Trust:** {100 - nsfw_count * 10}
+    **Spammer:** {True if nsfw_count > 10 else False}
+    **NSFW Count:** {nsfw_count}
     **Blacklisted:** {is_gbanned}
 """
     return data
