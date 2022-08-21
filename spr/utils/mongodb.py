@@ -197,3 +197,18 @@ async def disable_admin(chat_id: int):
     if not is_admin:
         return
     return await admindb.delete_one({"chat_id": chat_id})
+
+
+countdb = db.countnsfw
+
+async def get_nsfw_count(user_id: int):
+    _notes = await countdb.find_one({"user_id": user_id})
+    if not _notes:
+        return 0
+    return _notes["notes"]
+
+async def save_nsfw(user_id: int):
+    await countdb.update_one(
+        {"user_id": user_id}, {"$inc": {"notes": int(1)}}, upsert=True
+    )
+
