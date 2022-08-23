@@ -68,7 +68,7 @@ async def message_watcher(_, message: Message):
         res_max = max(results, key=lambda x:float(x)) 
         result = format(res_max, '.0%')
         detected = (int(result.replace("%", "")))
-        if detected > 10:
+        if detected > 70:
                 is_nfw = await is_nsfw_enabled(chat_id)
                 if is_nfw:
                          admin_chat = await is_admin_chat(chat_id)
