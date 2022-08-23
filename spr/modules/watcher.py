@@ -65,10 +65,10 @@ async def message_watcher(_, message: Message):
             except Exception:
                 return
         os.remove(file)     
-        hel = max(results)
-        result = format(hel, '.0%')
-        detected = result.replace("%", "")
-        if int(detected) > 10:
+        res_max = max(results, key=lambda x:float(x)) 
+        result = format(res_max, '.0%')
+        detected = (int(result.replace("%", "")))
+        if detected > 10:
                 is_nfw = await is_nsfw_enabled(chat_id)
                 if is_nfw:
                          admin_chat = await is_admin_chat(chat_id)
